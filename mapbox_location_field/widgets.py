@@ -14,6 +14,8 @@ class MapInput(TextInput):
         attrs.update({
             "class": "js-mapbox-input-location-field",
             "maxlenght": 63,
+            "readonly": True,
+            "placeholder": "Pick a location on map below"
         })
 
         return super().get_context(name, value, attrs)

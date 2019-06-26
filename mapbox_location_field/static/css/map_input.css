@@ -12,5 +12,7 @@
 }
 
 .js-mapbox-input-location-field {
-    visibility: hidden;
+    visibility: visible;
+    width: 70%;
+    margin:0.3%;
 }
