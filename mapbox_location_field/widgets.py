@@ -1,5 +1,4 @@
 from django.forms.widgets import TextInput
-from django.utils.html import mark_safe
 
 
 class MapInput(TextInput):
@@ -14,6 +13,7 @@ class MapInput(TextInput):
     def get_context(self, name, value, attrs):
         attrs.update({
             "class": "js-mapbox-input-location-field",
+            "maxlenght": 63,
         })
 
         return super().get_context(name, value, attrs)
