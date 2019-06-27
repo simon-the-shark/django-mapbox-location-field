@@ -1,4 +1,4 @@
-.mapboxgl-map {
+#secret-id-map-mapbox-location-field {
     top: 0;
     bottom: 0;
     width: 100%;
@@ -7,12 +7,8 @@
 
 }
 
-#secret-id-map-mapbox-location-field {
-    height: 350px;
-}
-
 .js-mapbox-input-location-field {
     visibility: visible;
     width: 70%;
-    margin:0.3%;
+    margin: 0.3%;
 }

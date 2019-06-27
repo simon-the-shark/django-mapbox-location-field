@@ -11,11 +11,13 @@ class MapInput(TextInput):
         }
 
     def get_context(self, name, value, attrs):
-        attrs.update({
-            "class": "js-mapbox-input-location-field",
+        must_be_attrs = {
             "maxlenght": 63,
             "readonly": True,
             "placeholder": "Pick a location on map below"
-        })
+        }
+
+        attrs.update(must_be_attrs)
+        attrs["class"] = attrs.get("class", "") + " js-mapbox-input-location-field"
 
         return super().get_context(name, value, attrs)
