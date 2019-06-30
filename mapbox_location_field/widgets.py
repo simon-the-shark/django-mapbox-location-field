@@ -45,7 +45,8 @@ class MapInput(TextInput):
             "navigation_buttons": True,
             "track_location_button": True,
         }
-        default_map_attrs.update(self.map_attrs)
+        if self.map_attrs is not None:
+            default_map_attrs.update(self.map_attrs)
         xd = "<script>mapboxgl.accessToken = '{}';{}</script>".format(settings.MAPBOX_KEY,
                                                                       self.map_attrs_to_javascript(default_map_attrs))
         return xd
