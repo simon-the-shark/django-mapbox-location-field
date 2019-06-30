@@ -64,7 +64,7 @@ var geocoder = new MapboxGeocoder({
 });
 
 map.getCanvas().style.cursor = map_attr_cursor_style;
-if (map_attr_rotate) {
+if (!map_attr_rotate) {
     map.dragRotate.disable();
     map.touchZoomRotate.disableRotation();
 }
