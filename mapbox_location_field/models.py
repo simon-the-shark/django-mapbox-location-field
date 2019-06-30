@@ -6,6 +6,7 @@ from .forms import LocationField as LocationFormField
 
 
 def parse_location(location_string):
+    """parse and convert coordinates from string to tuple"""
     args = location_string.split(",")
     if len(args) != 2:
         raise ValidationError(_("Invalid input for a Location instance"))
@@ -26,6 +27,8 @@ def parse_location(location_string):
 
 
 class LocationField(models.CharField):
+    """custom model field for storing location"""
+
     description = _("Location field (latitude and longitude).")
 
     def __init__(self, *args, **kwargs):

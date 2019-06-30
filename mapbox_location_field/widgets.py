@@ -3,6 +3,8 @@ from django.conf import settings
 
 
 class MapInput(TextInput):
+    """widget for picking your location"""
+
     template_name = "mapbox_location_field\map_input.html"
 
     def __init__(self, attrs=None, map_attrs=None):
@@ -32,6 +34,7 @@ class MapInput(TextInput):
         return rend
 
     def get_config_settings(self):
+        """renders javascript configuration variables definitions"""
         default_map_attrs = {
             "style": "mapbox://styles/mapbox/outdoors-v11",
             "zoom": 13,
@@ -52,6 +55,7 @@ class MapInput(TextInput):
 
     @staticmethod
     def map_attrs_to_javascript(map_attrs):
+        """renders javascript variables from dictionary of attrs"""
         js = ""
         js_pattern = "var map_attr_{key} = '{value}';"
         js_pattern_literally = "var map_attr_{key} = {value};"
