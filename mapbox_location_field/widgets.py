@@ -38,7 +38,7 @@ class MapInput(TextInput):
             "zoom": 13,
             "center": [17.031645, 51.106715],
             "cursor_style": 'pointer',
-            "marker_color": "blue",
+            "marker_color": "red",
             "rotate": False,
             "geocoder": True,
             "fullscreen_button": True,
