@@ -30,11 +30,13 @@ class LocationField(models.CharField):
 
     def __init__(self, *args, **kwargs):
         kwargs["max_length"] = 63
+        self.map_attrs = kwargs.pop("map_attrs", None)
         super().__init__(*args, **kwargs)
 
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
         del kwargs["max_length"]
+        kwargs["map_attrs"] = self.map_attrs
         return name, path, args, kwargs
 
     def from_db_value(self, value, expression, connection):
@@ -57,6 +59,7 @@ class LocationField(models.CharField):
     def formfield(self, **kwargs):
         defaults = {'form_class': LocationFormField}
         defaults.update(kwargs)
+        defaults.update({"map_attrs": self.map_attrs})
         return super().formfield(**defaults)
 
     def value_to_string(self, obj):
