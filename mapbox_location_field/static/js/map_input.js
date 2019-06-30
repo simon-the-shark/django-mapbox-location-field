@@ -51,9 +51,9 @@ function translate_to_string(obj) {
 var input = $(".js-mapbox-input-location-field");
 var map = new mapboxgl.Map({
     container: 'secret-id-map-mapbox-location-field',
-    style: 'mapbox://styles/mapbox/outdoors-v11',
-    center: [17.031645, 51.106715],
-    zoom: 13
+    style: map_attr_style,
+    center: map_attr_center,
+    zoom: map_attr_zoom,
 });
 
 var geocoder = new MapboxGeocoder({
@@ -63,24 +63,33 @@ var geocoder = new MapboxGeocoder({
 
 });
 
-map.getCanvas().style.cursor = 'pointer';
-map.dragRotate.disable();
-map.touchZoomRotate.disableRotation();
+map.getCanvas().style.cursor = map_attr_cursor_style;
+if (map_attr_rotate) {
+    map.dragRotate.disable();
+    map.touchZoomRotate.disableRotation();
+}
+if (map_attr_track_location_button) {
+    map.addControl(new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true,
+    }));
+}
+if (map_attr_geocoder) {
+    map.addControl(geocoder, "top-left");
+}
 
-map.addControl(new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    },
-    trackUserLocation: true,
-}));
-map.addControl(geocoder, "top-left");
-map.addControl(new mapboxgl.FullscreenControl());
-map.addControl(new mapboxgl.NavigationControl());
-
+if (map_attr_fullscreen_button) {
+    map.addControl(new mapboxgl.FullscreenControl());
+}
+if (map_attr_navigation_buttons) {
+    map.addControl(new mapboxgl.NavigationControl());
+}
 geocoder.on("result", function (e) {
     $("div.mapboxgl-marker.mapboxgl-marker-anchor-center").not(".mapboxgl-user-location-dot").remove();
     input.val(e.result.geometry.coordinates);
-    var marker = new mapboxgl.Marker({draggable: true,});
+    var marker = new mapboxgl.Marker({draggable: true, color: map_attr_marker_color,});
     marker.setLngLat(e.result.geometry.coordinates)
         .addTo(map);
 });
@@ -88,7 +97,7 @@ geocoder.on("result", function (e) {
 map.on("click", function (e) {
     $("div.mapboxgl-marker.mapboxgl-marker-anchor-center").not(".mapboxgl-user-location-dot").remove();
     input.val(translate_to_string(e.lngLat));
-    var marker = new mapboxgl.Marker({draggable: true,});
+    var marker = new mapboxgl.Marker({draggable: true, color: map_attr_marker_color,});
     marker.setLngLat(e.lngLat)
         .addTo(map);
 });
