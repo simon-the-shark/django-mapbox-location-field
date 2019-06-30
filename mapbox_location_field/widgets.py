@@ -1,4 +1,5 @@
 from django.forms.widgets import TextInput
+from django.conf import settings
 
 
 class MapInput(TextInput):
@@ -21,3 +22,12 @@ class MapInput(TextInput):
         attrs["class"] = attrs.get("class", "") + " js-mapbox-input-location-field"
 
         return super().get_context(name, value, attrs)
+
+    def render(self, name, value, attrs=None, renderer=None):
+        rend = super().render(name, value, attrs, renderer)
+        rend += self.get_config_settings()
+        return rend
+
+    @staticmethod
+    def get_config_settings():
+        return "<script>mapboxgl.accessToken = '{}';</script>".format(settings.MAPBOX_KEY)
