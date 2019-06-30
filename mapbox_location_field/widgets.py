@@ -48,7 +48,6 @@ class MapInput(TextInput):
         default_map_attrs.update(self.map_attrs)
         xd = "<script>mapboxgl.accessToken = '{}';{}</script>".format(settings.MAPBOX_KEY,
                                                                       self.map_attrs_to_javascript(default_map_attrs))
-        print(xd)
         return xd
 
     @staticmethod
