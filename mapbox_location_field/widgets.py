@@ -12,9 +12,9 @@ class MapInput(TextInput):
         super().__init__(attrs)
 
     class Media:
-        js = ("js\map_input.js",)
+        js = ("js/map_input.js",)
         css = {
-            "all": ("css\map_input.css",)
+            "all": ("css/map_input.css",)
         }
 
     def get_context(self, name, value, attrs):
