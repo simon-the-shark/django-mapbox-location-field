@@ -12,9 +12,9 @@ class MapInput(TextInput):
         super().__init__(attrs)
 
     class Media:
-        js = ("js/map_input.js",)
+        js = ("mapbox_location_field/js/map_input.js",)
         css = {
-            "all": ("css/map_input.css",)
+            "all": ("mapbox_location_field/css/map_input.css",)
         }
 
     def get_context(self, name, value, attrs):
@@ -75,5 +75,5 @@ class MapAdminInput(MapInput):
     """map input, but with custom css and not defined in media js"""
     class Media:
         css = {
-            "all": ("css/map_input.css",)
+            "all": ("mapbox_location_field/css/map_input.css",)
         }

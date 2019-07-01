@@ -12,5 +12,5 @@ class MapAdmin(admin.ModelAdmin):
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
         extra_context = extra_context or {}
-        extra_context["map_input_media"] = Media(js=("js/map_input.js",))
+        extra_context["map_input_media"] = Media(js=("mapbox_location_field/js/map_input.js",))
         return super().change_view(request, object_id, form_url, extra_context=extra_context, )
