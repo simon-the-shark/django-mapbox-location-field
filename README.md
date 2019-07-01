@@ -2,7 +2,7 @@
  # django-mapbox-location-field
  [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/) [![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
  ****
- Simple in use **location model and form field** with **MapInput widget** for picking some location. Uses [mapbox gl js](https://docs.mapbox.com/mapbox-gl-js/), flexible map provider API.
+ Simple in use **location model and form field** with **MapInput widget** for picking some location. Uses [mapbox gl js](https://docs.mapbox.com/mapbox-gl-js/), flexible map provider API. Fully compatible with bootstrap framework.
  ****
 
 
@@ -20,7 +20,7 @@
 # Why this?
 I was searching for some django location field which uses mapbox and I could use in my project. I didn't find anything which suits my needs in 100% and that is why I created this simple django app. My philosopy was simplicity but I wanted to create complete solution for picking location.
 
-Feel free to open issues, make pull request and request some features or instructions.
+Feel free to open issues, make pull request and request some features or instructions. Let me know if you think it is not flexible enought.
 # Compatibility
 For now I tested it only on
 * Django 2.2
