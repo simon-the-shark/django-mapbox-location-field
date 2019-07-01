@@ -31,7 +31,7 @@ Travis and unit tests also on other versions in near future.
 
 # Instalation
 Using pip:
-    `pip install django-mapbox-location-field`
+    `pip install django-location-field`
 
 # Configuration
 * Add `"mapbox_location_field"` to `INSTALLED_APPS` in your settings file
