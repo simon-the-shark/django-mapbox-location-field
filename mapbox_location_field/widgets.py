@@ -29,6 +29,7 @@ class MapInput(TextInput):
         return super().get_context(name, value, attrs)
 
     def render(self, name, value, attrs=None, renderer=None):
+        """attaches js config vars to rendered html"""
         rend = super().render(name, value, attrs, renderer)
         rend += self.get_config_settings()
         return rend
@@ -50,7 +51,7 @@ class MapInput(TextInput):
         if self.map_attrs is not None:
             default_map_attrs.update(self.map_attrs)
         js = "<script>mapboxgl.accessToken = '{}';{}</script>".format(settings.MAPBOX_KEY,
-                                                                    self.map_attrs_to_javascript(default_map_attrs))
+                                                                      self.map_attrs_to_javascript(default_map_attrs))
         return js
 
     @staticmethod
@@ -68,3 +69,11 @@ class MapInput(TextInput):
             else:
                 js += js_pattern.format(key=key, value=value)
         return js
+
+
+class MapAdminInput(MapInput):
+    """map input, but with custom css and not defined in media js"""
+    class Media:
+        css = {
+            "all": ("css/map_input.css",)
+        }

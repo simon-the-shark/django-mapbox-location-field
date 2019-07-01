@@ -15,6 +15,7 @@
 * [Customization](#customization)
     * [map_attrs](#map_attrs)
     * [bootstrap](#bootstrap)
+* [Admin interface usage](#admin-interface-usage)
 * [Technologies](#technologies)
 
 # Why this?
@@ -122,6 +123,18 @@ class Location(models.Model):
 ## bootstrap
 MapInput widget is fully compatibile with bootstrap library. I can even recommend to use it with [django-bootstrap4](https://github.com/zostera/django-bootstrap4) or [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms).
 
+# Admin interface usage
+First create some model with location field like in [usage section](#usage).
+Then register it in admin interface like this:
+```python
+from django.contrib import admin
+from .models import Location
+from mapbox_location_field.admin import MapAdmin
+
+admin.site.register(Location, MapAdmin)
+```
+In example above, Location is name of your model.
+Everything from [customization section](#customization) also works in admin interface.
 # Technologies
 * Django
 * mapbox gl js
