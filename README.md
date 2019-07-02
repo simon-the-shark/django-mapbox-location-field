@@ -111,7 +111,7 @@ class Location(models.Model):
 ## map_attrs
 * style - `<string>`, mapbox style url. Read more [here](https://docs.mapbox.com/help/glossary/style-url/).
 * zoom - `<int>`, map's zoom. Read more [here](https://docs.mapbox.com/help/glossary/zoom-level/).
-* center - `<list>` or `<tuple>` of `<int>`s, defaults map's center point in [`latitude`, `longitude`]
+* center - `<list>` or `<tuple>` of `<float>`s, defaults map's center point in [`latitude`, `longitude`]
 * cursor_style - `<string>`, css cursor style. Read more [here](https://www.w3schools.com/cssref/pr_class_cursor.asp).
 * marker_color - `<string>` css color property. Read more [here](https://www.w3schools.com/cssref/css_colors_legal.asp)  and [here](https://www.w3schools.com/cssref/css_colors.asp).
 * rotate - `<bool>`, whether you can rotate map with right mouse click or not.
