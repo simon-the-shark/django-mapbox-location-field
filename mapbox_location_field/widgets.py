@@ -8,6 +8,8 @@ class MapInput(TextInput):
     template_name = "mapbox_location_field\map_input.html"
 
     def __init__(self, attrs=None, map_attrs=None):
+        if map_attrs is None:
+            map_attrs = {}
         self.map_attrs = map_attrs
         self.readonly = self.map_attrs.pop("readonly", True)
         self.placeholder = self.map_attrs.pop("placeholder", "Pick a location on map below")

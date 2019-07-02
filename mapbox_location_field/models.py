@@ -33,7 +33,7 @@ class LocationField(models.CharField):
 
     def __init__(self, *args, **kwargs):
         kwargs["max_length"] = 63
-        self.map_attrs = kwargs.pop("map_attrs", None)
+        self.map_attrs = kwargs.pop("map_attrs", {})
         super().__init__(*args, **kwargs)
 
     def deconstruct(self):
@@ -42,7 +42,7 @@ class LocationField(models.CharField):
         kwargs["map_attrs"] = self.map_attrs
         return name, path, args, kwargs
 
-    def from_db_value(self, value, expression, connection):
+    def from_db_value(self, value, expression=None, connection=None):
         if value is None:
             return value
         return parse_location(value)
