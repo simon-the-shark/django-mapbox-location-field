@@ -9,6 +9,8 @@ class MapInput(TextInput):
 
     def __init__(self, attrs=None, map_attrs=None):
         self.map_attrs = map_attrs
+        self.readonly = self.map_attrs.pop("readonly", True)
+        self.placeholder = self.map_attrs.pop("placeholder", "Pick a location on map below")
         super().__init__(attrs)
 
     class Media:
@@ -19,8 +21,8 @@ class MapInput(TextInput):
 
     def get_context(self, name, value, attrs):
         must_be_attrs = {
-            "readonly": True,
-            "placeholder": "Pick a location on map below"
+            "readonly": self.readonly,
+            "placeholder": self.placeholder
         }
 
         attrs.update(must_be_attrs)
@@ -73,6 +75,7 @@ class MapInput(TextInput):
 
 class MapAdminInput(MapInput):
     """map input, but with custom css and not defined in media js"""
+
     class Media:
         css = {
             "all": ("mapbox_location_field/css/map_input.css",)

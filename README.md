@@ -98,6 +98,8 @@ default_map_attrs = {
             "fullscreen_button": True,
             "navigation_buttons": True,
             "track_location_button": True,
+            "readonly": True,
+            "placeholder": "Pick a location on map below",
         }
 ```
 To change some values, just pass it when you creates model.
@@ -119,6 +121,8 @@ class Location(models.Model):
 * fullscreen_button - `<bool>`, whether fullscreen button is showed or not.
 * navigation_buttons - `<bool>`, whether navigation buttons are showed or not.
 * track_location_button - `<bool>`, whether show my location button is showed or not.
+* readonly - `<bool>`, whether user can type location in text input
+* placeholder - `<string>`, text input's placeholder
 
 ## bootstrap
 MapInput widget is fully compatibile with bootstrap library. I can even recommend to use it with [django-bootstrap4](https://github.com/zostera/django-bootstrap4) or [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms).
