@@ -64,7 +64,7 @@ class MapInputTests(TestCase):
             "navigation_buttons": True,
             "track_location_button": True, })
 
-        expected_result = f"<script>mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY';{javascript}</script>"
+        expected_result = "<script>mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY';{}</script>".format(javascript)
         result = widget.get_config_settings()
         self.assertEqual(result, expected_result)
 
@@ -85,7 +85,7 @@ class MapInputTests(TestCase):
         settings.MAPBOX_KEY = "MY_COOL_MAPBOX_KEY"
         javascript = widget.map_attrs_to_javascript(map_attrs)  # already tested above
 
-        expected_result = f"<script>mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY';{javascript}</script>"
+        expected_result = "<script>mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY';{}</script>".format(javascript)
         result = widget.get_config_settings()
         self.assertEqual(result, expected_result)
 
