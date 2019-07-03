@@ -23,12 +23,12 @@ I was searching for some django location field which uses mapbox and I could use
 
 Feel free to open issues, make pull request and request some features or instructions. Let me know if you think it is not flexible enought.
 # Compatibility
-For now I tested it only on
-* Django 2.2
-* Python 3.6.1
+Automatically tested on Travis CI on versions:
 
-Travis and unit tests also on other versions in near future.
+* Django 1.11, 2.0, 2.1, 2.2
+* Python 3.5, 3.6, 3.7
 
+PS. Django 1.11 does not support Python 3.7 anymore.
 # Instalation
 Using pip:
     `pip install django-mapbox-location-field`
