@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.core.exceptions import ValidationError
 
 from mapbox_location_field.models import parse_location, LocationField
+from mapbox_location_field.forms import LocationField as FormLocationField
 
 
 class LocationFieldTests(TestCase):
@@ -41,3 +42,7 @@ class LocationFieldTests(TestCase):
     def test_get_prep_value(self):
         instance = LocationField()
         self.assertEqual("1,5", instance.get_prep_value((1, 5)))
+
+    def test_form_field(self):
+        instance = LocationField()
+        self.assertEqual(instance.formfield().__class__, FormLocationField().__class__)
