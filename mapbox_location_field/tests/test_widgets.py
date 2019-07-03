@@ -7,6 +7,8 @@ from mapbox_location_field.widgets import MapInput
 class MapInputTests(TestCase):
 
     def test_map_attrs_defaults(self):
+        self.maxDiff = None
+
         widget = MapInput()
         self.assertEqual(widget.map_attrs, {})
         self.assertEqual(widget.placeholder, "Pick a location on map below")
