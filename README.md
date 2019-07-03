@@ -44,6 +44,7 @@ INSTALLED_APPS += ("mapbox_location_field",)
 ```python
 MAPBOX_KEY = "pk.eyJ1IjoibWlnaHR5c2hhcmt5IiwiYSI6ImNqd2duaW4wMzBhcWI0M3F1MTRvbHB0dWcifQ.1sDAD43q0ktK1Sr374xGfw"
 ```
+**PS. This above is only example access token. You have to paste here yours.**
 
 # Usage
 * Just create some model with LocationField.
