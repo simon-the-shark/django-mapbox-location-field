@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 from django.test import TestCase
 from django.conf import settings
 
@@ -8,12 +6,21 @@ from mapbox_location_field.widgets import MapInput
 
 class MapInputTests(TestCase):
 
-    def equality_of_random_javascript(self, outputed_string, expected_list):
-        expected_list.append("")
-        outputed_list = outputed_string.split(";")
+    def lists_equality_test(self, outputed_list, expected_list):
         self.assertEqual(len(outputed_list), len(expected_list))
         for statement in expected_list:
             self.assertIn(statement, outputed_list)
+
+    def equality_of_random_javascript(self, outputed_string, expected_list):
+        expected_list.append("")
+        outputed_list = outputed_string.split(";")
+        self.lists_equality_test(outputed_list, expected_list)
+
+    def html_element_test(self, elem, start, end, expected_list):
+        self.assertTrue(elem.startswith(start))
+        self.assertTrue(elem.endswith(end))
+        crippled_elem_list = elem[len(start):-len(end)].split(" ")
+        self.lists_equality_test(crippled_elem_list, expected_list)
 
     def test_map_attrs_defaults(self):
         widget = MapInput()
@@ -110,11 +117,38 @@ class MapInputTests(TestCase):
 
     def test_render(self):
         settings.MAPBOX_KEY = "MY_COOL_MAPBOX_KEY"
-        attrs = {"maxlength": 63, "class": "form-group", "required": True, "id": "id_location", }
-        attrs = OrderedDict(sorted(attrs.items(), key=lambda t: t[0]))
-        widget = MapInput()
-        expected_rend = '<input type="text" name="location" class="form-group js-mapbox-input-location-field" id="id_location" maxlength="63" required readonly placeholder="Pick a location on map below">\n\n' + "<div id='secret-id-map-mapbox-location-field' class='location-field-map'></div>\n<div id='secret-id-geocoder-mapbox-location-field' class='location-field-geocoder'></div><script>mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY';var map_attr_style = 'mapbox://styles/mapbox/outdoors-v11';var map_attr_zoom = '13';var map_attr_center = [17.031645, 51.106715];var map_attr_cursor_style = 'pointer';var map_attr_marker_color = 'red';var map_attr_rotate = false;var map_attr_geocoder = true;var map_attr_fullscreen_button = true;var map_attr_navigation_buttons = true;var map_attr_track_location_button = true;</script>"
-        rend = widget.render("location", None, attrs=attrs)
-        self.maxDiff = None
+        widget = MapInput(map_attrs={"placeholder": "cool-placeholder"})
 
-        self.assertEqual(rend, expected_rend)
+        # expected_rend = '<input type="text" name="location" class="form-group js-mapbox-input-location-field" id="id_location" maxlength="63" required readonly placeholder="cool-placeholder">\n\n' + "<div id='secret-id-map-mapbox-location-field' class='location-field-map'></div>\n<div id='secret-id-geocoder-mapbox-location-field' class='location-field-geocoder'></div><script>mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY';var map_attr_style = 'mapbox://styles/mapbox/outdoors-v11';var map_attr_zoom = '13';var map_attr_center = [17.031645, 51.106715];var map_attr_cursor_style = 'pointer';var map_attr_marker_color = 'red';var map_attr_rotate = false;var map_attr_geocoder = true;var map_attr_fullscreen_button = true;var map_attr_navigation_buttons = true;var map_attr_track_location_button = true;</script>"
+
+        rend = widget.render("location", None,
+                             attrs={"maxlength": 63, "class": "form-group", "required": True, "id": "id_location", })
+
+        rend_list1 = rend.split("\n")
+        self.assertEqual(len(rend_list1), 4)
+
+        input = rend_list1[0]
+        empty_str = rend_list1[1]
+        map_div = rend_list1[2]
+        geocoder, js = rend_list1[3].split("<script>")
+
+        self.assertEqual(empty_str, "")
+        self.html_element_test(input, "<input ", ">", ['type="text"', 'name="location"', 'class="form-group',
+                                                       'js-mapbox-input-location-field"',
+                                                       'id="id_location"', 'maxlength="63"', 'required', 'readonly',
+                                                       'placeholder="cool-placeholder"'])
+        self.html_element_test(map_div, "<div ", "></div>",
+                               ["id='secret-id-map-mapbox-location-field'", "class='location-field-map'"])
+        self.html_element_test(geocoder, "<div ", "></div>",
+                               ["id='secret-id-geocoder-mapbox-location-field'", "class='location-field-geocoder'"])
+        self.assertTrue(js.endswith("</script>"))
+        self.equality_of_random_javascript(js[:-9], ["mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY'",
+                                                     "var map_attr_style = 'mapbox://styles/mapbox/outdoors-v11'",
+                                                     "var map_attr_zoom = '13'",
+                                                     'var map_attr_center = [17.031645, 51.106715]',
+                                                     "var map_attr_cursor_style = 'pointer'",
+                                                     "var map_attr_marker_color = 'red'", 'var map_attr_rotate = false',
+                                                     'var map_attr_geocoder = true',
+                                                     'var map_attr_fullscreen_button = true',
+                                                     'var map_attr_navigation_buttons = true',
+                                                     'var map_attr_track_location_button = true', ])
