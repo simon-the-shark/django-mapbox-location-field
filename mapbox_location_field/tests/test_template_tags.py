@@ -2,7 +2,7 @@ from django.test import SimpleTestCase
 from django.template import Template, Context
 
 
-class CreateHeaderTemplateTagTest(SimpleTestCase):
+class TemplateTagsTest(SimpleTestCase):
 
     def test_location_field_includes(self):
         template_to_render = Template(
