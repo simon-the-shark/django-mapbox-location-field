@@ -22,11 +22,13 @@ class MapInput(TextInput):
         }
 
     def get_context(self, name, value, attrs):
+        if attrs is None:
+            attrs = {}
+
         must_be_attrs = {
             "readonly": self.readonly,
             "placeholder": self.placeholder
         }
-
         attrs.update(must_be_attrs)
         attrs["class"] = attrs.get("class", "") + " js-mapbox-input-location-field"
 
