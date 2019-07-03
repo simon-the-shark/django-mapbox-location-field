@@ -5,7 +5,7 @@ from django.conf import settings
 class MapInput(TextInput):
     """widget for picking your location"""
 
-    template_name = "mapbox_location_field\map_input.html"
+    template_name = "mapbox_location_field/map_input.html"
 
     def __init__(self, attrs=None, map_attrs=None):
         if map_attrs is None:
