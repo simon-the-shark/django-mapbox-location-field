@@ -30,6 +30,10 @@ Automatically tested on Travis CI on versions:
 * Python 3.5, 3.6, 3.7
 
 PS. Django 1.11 does not support Python 3.7 anymore.
+
+#### Browser support
+django-mapbox-location-field support all browsers, which are suported by mapbox gl js. Read more [here](https://docs.mapbox.com/help/troubleshooting/mapbox-browser-support/#mapbox-gl-js)
+
 # Instalation
 Using pip:
     `pip install django-mapbox-location-field`
