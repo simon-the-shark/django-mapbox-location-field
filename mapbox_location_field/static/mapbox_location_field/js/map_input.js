@@ -58,6 +58,10 @@ $(document).ready(function () {
         return dict
     }
 
+    function replace_order(array) {
+        return [array[1], array[0]]
+    }
+
     var input = $(".js-mapbox-input-location-field");
     var map = new mapboxgl.Map({
         container: 'secret-id-map-mapbox-location-field',
@@ -106,7 +110,7 @@ $(document).ready(function () {
     }
     geocoder.on("result", function (e) {
         $("div.mapboxgl-marker.mapboxgl-marker-anchor-center").not(".mapboxgl-user-location-dot").remove();
-        input.val(e.result.geometry.coordinates);
+        input.val(replace_order(e.result.geometry.coordinates));
         var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
         marker.setLngLat(e.result.geometry.coordinates)
             .addTo(map);
