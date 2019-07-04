@@ -67,6 +67,9 @@ class LocationForm(forms.ModelForm):
         model = Location
         fields = "__all__"
 ```
+Of course you can also use CreateView, UpdateView or build Form yourself with mapbox_location_field.forms.LocationField
+
+
 * Then just use it in html view. It can't be simpler!
 Paste this in your html head:
 ```django
