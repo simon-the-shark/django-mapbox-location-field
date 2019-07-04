@@ -66,7 +66,6 @@ class MapInput(TextInput):
 
         if self.center_point:
             default_map_attrs["center"] = parse_tuple_string(self.center_point)
-            print(default_map_attrs["center"])
 
         if self.map_attrs is not None:
             default_map_attrs.update(self.map_attrs)
