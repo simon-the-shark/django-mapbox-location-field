@@ -2,6 +2,10 @@ from django.forms.widgets import TextInput
 from django.conf import settings
 
 
+def parse_tuple_string(tuple_string):
+    return tuple(map(float, tuple_string[1:-1].split(", ")))
+
+
 class MapInput(TextInput):
     """widget for picking your location"""
 
@@ -13,6 +17,8 @@ class MapInput(TextInput):
         self.map_attrs = map_attrs
         self.readonly = self.map_attrs.pop("readonly", True)
         self.placeholder = self.map_attrs.pop("placeholder", "Pick a location on map below")
+        self.center_point = False
+
         super().__init__(attrs)
 
     class Media:
@@ -32,7 +38,10 @@ class MapInput(TextInput):
         attrs.update(must_be_attrs)
         attrs["class"] = attrs.get("class", "") + " js-mapbox-input-location-field"
 
-        return super().get_context(name, value, attrs)
+        contex = super().get_context(name, value, attrs)
+        self.center_point = contex["widget"].get("value", False)
+
+        return contex
 
     def render(self, name, value, attrs=None, renderer=None):
         """attaches js config vars to rendered html"""
@@ -45,7 +54,7 @@ class MapInput(TextInput):
         default_map_attrs = {
             "style": "mapbox://styles/mapbox/outdoors-v11",
             "zoom": 13,
-            "center": [17.031645, 51.106715],
+            "center": [51.106715, 17.031645],
             "cursor_style": 'pointer',
             "marker_color": "red",
             "rotate": False,
@@ -54,6 +63,11 @@ class MapInput(TextInput):
             "navigation_buttons": True,
             "track_location_button": True,
         }
+
+        if self.center_point:
+            default_map_attrs["center"] = parse_tuple_string(self.center_point)
+            print(default_map_attrs["center"])
+
         if self.map_attrs is not None:
             default_map_attrs.update(self.map_attrs)
         js = "<script>mapboxgl.accessToken = '{}';{}</script>".format(settings.MAPBOX_KEY,

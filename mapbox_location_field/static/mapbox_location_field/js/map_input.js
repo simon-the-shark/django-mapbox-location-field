@@ -49,15 +49,6 @@ $(document).ready(function () {
         return lat + "," + lng
     }
 
-    function translate_to_dict(tuple) {
-        list = tuple.substring(1, tuple.length - 1).split(", ").map(Number);
-        var dict = {
-            lat: list[0],
-            lng: list[1],
-        };
-        return dict
-    }
-
     function replace_order(array) {
         return [array[1], array[0]]
     }
@@ -66,17 +57,14 @@ $(document).ready(function () {
     var map = new mapboxgl.Map({
         container: 'secret-id-map-mapbox-location-field',
         style: map_attr_style,
-        center: map_attr_center,
+        center: replace_order(map_attr_center),
         zoom: map_attr_zoom,
     });
-    map.on("load", function (e) {
-        if (input.val()) {
-            var latLng = translate_to_dict(input.val());
-            var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
-            marker.setLngLat(latLng)
-                .addTo(map);
-        }
-    });
+    if (input.val()) {
+        var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
+        marker.setLngLat(replace_order(map_attr_center))
+            .addTo(map);
+    }
 
     var geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
