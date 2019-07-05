@@ -9,6 +9,7 @@
 
 # Table of contents
 * [Why this?](#why-this)
+* [Live demo](#live-demo)
 * [Compatibility](#compatibility)
  * [Instalation](#instalation)
 * [Configuration](#configuration)
@@ -33,6 +34,10 @@ PS. Django 1.11 does not support Python 3.7 anymore.
 
 #### Browser support
 django-mapbox-location-field support all browsers, which are suported by mapbox gl js. Read more [here](https://docs.mapbox.com/help/troubleshooting/mapbox-browser-support/#mapbox-gl-js)
+
+# Live demo
+Curious how it works and looks like ? See live demo on https://django-mapbox-location-field.herokuapp.com
+Demo app uses [django-bootstrap4](https://github.com/zostera/django-bootstrap4) for a little better looking form fields.
 
 # Instalation
 Using pip:
