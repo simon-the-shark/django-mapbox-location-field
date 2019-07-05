@@ -67,6 +67,7 @@ if (!mapboxgl.supported()) {
             var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
             marker.setLngLat(replace_order(map_attr_center))
                 .addTo(map);
+            input.val(map_attr_center);
         }
 
         var geocoder = new MapboxGeocoder({
