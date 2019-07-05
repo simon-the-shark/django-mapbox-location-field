@@ -9,14 +9,14 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-mapbox-location-field',
-    version='0.2.1',
+    version='0.2.2',
     packages=["mapbox_location_field"],
     include_package_data=True,
     license='MIT License',
     description='location field with MapInput widget for picking some location',
     long_description=README,
     long_description_content_type="text/markdown",
-    download_url="https://github.com/Simon-the-Shark/django-mapbox-location-field/archive/v0.2.1.tar.gz",
+    download_url="https://github.com/Simon-the-Shark/django-mapbox-location-field/archive/v0.2.2.tar.gz",
     url='https://github.com/Simon-the-Shark/django-mapbox-location-field',
     author='Szymon Kowaliński',
     author_email='simonrekin@gmail.com',
