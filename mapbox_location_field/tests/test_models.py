@@ -42,6 +42,7 @@ class LocationFieldTests(TestCase):
     def test_get_prep_value(self):
         instance = LocationField()
         self.assertEqual("1,5", instance.get_prep_value((1, 5)))
+        self.assertEqual(None, instance.get_prep_value(None))
 
     def test_form_field(self):
         instance = LocationField()

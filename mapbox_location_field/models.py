@@ -57,6 +57,9 @@ class LocationField(models.CharField):
         return parse_location(value)
 
     def get_prep_value(self, value):
+        if value is None:
+            return value
+
         return "{},{}".format(value[0], value[1])
 
     def formfield(self, **kwargs):
