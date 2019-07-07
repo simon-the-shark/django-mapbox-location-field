@@ -97,3 +97,13 @@ class MapAdminInput(MapInput):
         css = {
             "all": ("mapbox_location_field/css/map_input.css",)
         }
+
+
+class AddressAutoHiddenInput(TextInput):
+    template_name = "mapbox_location_field/address_input.html"
+
+    class Media:
+        js = ("mapbox_location_field/js/address_input.js",)
+        css = {
+            "all": ("mapbox_location_field/css/address_input.css",)
+        }
