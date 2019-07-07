@@ -52,6 +52,12 @@ if (!mapboxgl.supported()) {
             return lat + "," + lng
         }
 
+        function translate_to_reversed_string(obj) {
+            var lat = obj.lat;
+            var lng = obj.lng;
+            return lng + "," + lat
+        }
+
         function replace_order(array) {
             return [array[1], array[0]]
         }
@@ -106,6 +112,8 @@ if (!mapboxgl.supported()) {
             var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
             marker.setLngLat(e.result.geometry.coordinates)
                 .addTo(map);
+
+            $(document).trigger("reverse-geocode", [e.result.place_name,])
         });
 
         map.on("click", function (e) {
@@ -114,7 +122,15 @@ if (!mapboxgl.supported()) {
             var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
             marker.setLngLat(e.lngLat)
                 .addTo(map);
-        });
 
+
+            var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + translate_to_reversed_string(e.lngLat) + ".json?access_token=" + mapboxgl.accessToken;
+            $.get(url, function (data) {
+                reverse_name = data.features[0].place_name;
+                geocoder.setInput(reverse_name);
+                $(document).trigger("reverse-geocode", [reverse_name,]);
+            });
+
+        });
     });
 }
