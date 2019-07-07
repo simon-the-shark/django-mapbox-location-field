@@ -23,3 +23,13 @@ class TemplateTagsTest(SimpleTestCase):
         self.assertInHTML(
             "<script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous'></script>",
             rendered_template)
+
+    def test_include_jquery_full(self):
+        template_to_render = Template(
+            "{% load mapbox_location_field_tags %}"
+            "{% include_jquery version='full' %}"
+        )
+        rendered_template = template_to_render.render(Context())
+        self.assertInHTML(
+            "<script src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT' crossorigin='anonymous' ></script>",
+            rendered_template)
