@@ -1,6 +1,6 @@
 from django import forms
 
-from .widgets import MapInput
+from .widgets import MapInput, AddressAutoHiddenInput
 
 
 class LocationField(forms.CharField):
@@ -12,3 +12,11 @@ class LocationField(forms.CharField):
 
         super().__init__(*args, **kwargs)
         self.error_messages = {"required": "Please pick a location, it's required", }
+
+
+class AddressAutoHiddenField(forms.CharField):
+    widget = AddressAutoHiddenInput()
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.label = ""

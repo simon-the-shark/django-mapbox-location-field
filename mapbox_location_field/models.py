@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 
 from .forms import LocationField as LocationFormField
+from .forms import AddressAutoHiddenField as AddressAutoHiddenFormField
 
 
 def parse_location(location_string):
@@ -71,3 +72,12 @@ class LocationField(models.CharField):
     def value_to_string(self, obj):
         value = self.value_from_object(obj)
         return self.get_prep_value(value)
+
+
+class AddressAutoHiddenField(models.TextField):
+    description = _("Address field which automatically fill with address from LocationField.")
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': AddressAutoHiddenFormField}
+        defaults.update(kwargs)
+        return models.Field.formfield(self, **defaults)
