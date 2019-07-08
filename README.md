@@ -18,6 +18,7 @@
     * [map_attrs](#map_attrs)
     * [bootstrap](#bootstrap)
 * [Admin interface usage](#admin-interface-usage)
+* [AddressAutoHiddenField](#addresautohiddenfield)
 * [Technologies](#technologies)
 
 # Why this?
@@ -153,6 +154,23 @@ admin.site.register(Location, MapAdmin)
 ```
 In example above, Location is name of your model.
 Everything from [customization section](#customization) also works in admin interface.
+
+# AddressAutoHiddenField
+AddressAutoHiddenField is field for storing address. It uses AddressAutoHiddenInput which is hidden and when you place your marker on map, automatically fill itself with proper address.
+In order to use it just add it to your model. Something like this:
+```python
+class Location(models.Model):
+    location = LocationField()
+    address = AddressAutoHiddenField()
+```
+and then in your form, replace
+```django
+{% include_jquery %}
+```
+with
+```django
+{% include_jquery version="full" %}
+```
 # Technologies
 * Django
 * mapbox gl js
