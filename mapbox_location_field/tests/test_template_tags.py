@@ -17,7 +17,7 @@ class TemplateTagsTest(SimpleTestCase):
     def test_include_jquery_full(self):
         template_to_render = Template(
             "{% load mapbox_location_field_tags %}"
-            "{% include_jquery version='full' %}"
+            "{% include_jquery %}"
         )
         rendered_template = template_to_render.render(Context())
         self.assertInHTML(
