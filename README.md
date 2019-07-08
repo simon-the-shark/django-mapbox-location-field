@@ -163,14 +163,7 @@ class Location(models.Model):
     location = LocationField()
     address = AddressAutoHiddenField()
 ```
-and then in your form, replace
-```django
-{% include_jquery %}
-```
-with
-```django
-{% include_jquery version="full" %}
-```
+
 # Technologies
 * Django
 * mapbox gl js
