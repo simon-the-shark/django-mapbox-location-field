@@ -1,8 +1,9 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 
-from mapbox_location_field.models import parse_location, LocationField
+from mapbox_location_field.models import parse_location, LocationField, AddressAutoHiddenField
 from mapbox_location_field.forms import LocationField as FormLocationField
+from mapbox_location_field.forms import AddressAutoHiddenField as FormAddressAutoHiddenField
 
 
 class LocationFieldTests(TestCase):
@@ -47,3 +48,9 @@ class LocationFieldTests(TestCase):
     def test_form_field(self):
         instance = LocationField()
         self.assertEqual(instance.formfield().__class__, FormLocationField().__class__)
+
+
+class AddressAutoHiddenFieldTests(TestCase):
+    def test_form_field(self):
+        instance = AddressAutoHiddenField()
+        self.assertEqual(instance.formfield().__class__, FormAddressAutoHiddenField().__class__)

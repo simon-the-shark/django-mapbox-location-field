@@ -15,6 +15,7 @@ class LocationField(forms.CharField):
 
 
 class AddressAutoHiddenField(forms.CharField):
+    """custom form field which uses AddressAutoHiddenInput"""
     widget = AddressAutoHiddenInput()
 
     def __init__(self, **kwargs):

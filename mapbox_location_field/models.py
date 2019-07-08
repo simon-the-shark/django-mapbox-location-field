@@ -1,9 +1,9 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
 
-from .forms import LocationField as LocationFormField
 from .forms import AddressAutoHiddenField as AddressAutoHiddenFormField
+from .forms import LocationField as LocationFormField
 
 
 def parse_location(location_string):
@@ -75,6 +75,7 @@ class LocationField(models.CharField):
 
 
 class AddressAutoHiddenField(models.TextField):
+    """custom model field for storing address"""
     description = _("Address field which automatically fill with address from LocationField.")
 
     def formfield(self, **kwargs):

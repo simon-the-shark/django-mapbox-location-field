@@ -100,6 +100,7 @@ class MapAdminInput(MapInput):
 
 
 class AddressAutoHiddenInput(TextInput):
+    """hidden text input which automatically fill itself with address from MapInput"""
     template_name = "mapbox_location_field/address_input.html"
 
     class Media:
