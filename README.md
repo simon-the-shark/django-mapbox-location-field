@@ -18,7 +18,7 @@
     * [map_attrs](#map_attrs)
     * [bootstrap](#bootstrap)
 * [Admin interface usage](#admin-interface-usage)
-* [AddressAutoHiddenField](#addresautohiddenfield)
+* [AddressAutoHiddenField](#addressautohiddenfield)
 * [Technologies](#technologies)
 
 # Why this?
