@@ -132,5 +132,10 @@ if (!mapboxgl.supported()) {
             });
 
         });
+
+        var addressinput = $(".js-mapbox-address-input-location-field");
+        if (addressinput.val()) {
+            geocoder.setInput(addressinput.val());
+        }
     });
 }

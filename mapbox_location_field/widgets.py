@@ -108,3 +108,10 @@ class AddressAutoHiddenInput(TextInput):
         css = {
             "all": ("mapbox_location_field/css/address_input.css",)
         }
+
+    def get_context(self, name, value, attrs):
+        if attrs is None:
+            attrs = {}
+
+        attrs["class"] = attrs.get("class", "") + " js-mapbox-address-input-location-field"
+        return super().get_context(name, value, attrs)

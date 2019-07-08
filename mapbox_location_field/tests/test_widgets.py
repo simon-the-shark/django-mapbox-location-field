@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.test import TestCase
 
-from mapbox_location_field.widgets import MapInput, parse_tuple_string
+from mapbox_location_field.widgets import MapInput, parse_tuple_string, AddressAutoHiddenInput
 
 
 class MapInputTests(TestCase):
@@ -184,3 +184,10 @@ class MapInputTests(TestCase):
         crippled_result = result[52:-9]
 
         self.equality_of_random_javascript(crippled_result, expected_js_list)
+
+
+class AddressAutoHiddenInputTests(TestCase):
+    def test_get_contex_when_map_attrs_None(self):
+        widget = AddressAutoHiddenInput()
+        contex = widget.get_context("addres_field", None, None)
+        self.assertTrue(contex["widget"]["attrs"]["class"].endswith(" js-mapbox-address-input-location-field"))
