@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 def parse_tuple_string(tuple_string):
-    return tuple(map(float, tuple_string[1:-1].split(", ")))
+    return tuple(map(float, tuple_string[1:-1].split(",")))
 
 
 class MapInput(TextInput):
