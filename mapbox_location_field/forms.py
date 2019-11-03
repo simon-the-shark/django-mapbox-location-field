@@ -62,7 +62,7 @@ class SpatialLocationField(PointField):
     def clean(self, value):
         try:
             return Point(parse_location(value), srid=4326)
-        except ValueError:
+        except (ValueError, ValidationError):
             return None
 
     def to_python(self, value):
