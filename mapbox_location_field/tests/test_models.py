@@ -1,9 +1,10 @@
-from django.test import TestCase
 from django.core.exceptions import ValidationError
+from django.test import TestCase
 
-from mapbox_location_field.models import parse_location, LocationField, AddressAutoHiddenField
-from mapbox_location_field.forms import LocationField as FormLocationField
 from mapbox_location_field.forms import AddressAutoHiddenField as FormAddressAutoHiddenField
+from mapbox_location_field.forms import LocationField as FormLocationField
+from mapbox_location_field.forms import SpatialLocationField as FormSpatialLocationField
+from mapbox_location_field.models import parse_location, LocationField, AddressAutoHiddenField, SpatialLocationField
 
 
 class LocationFieldTests(TestCase):
@@ -47,10 +48,24 @@ class LocationFieldTests(TestCase):
 
     def test_form_field(self):
         instance = LocationField()
-        self.assertEqual(instance.formfield().__class__, FormLocationField().__class__)
+        self.assertTrue(isinstance(instance.formfield(), FormLocationField))
+
+
+class SpatialLocationFieldTests(TestCase):
+
+    def test_SpatialLocationField(self):
+        instance = SpatialLocationField()
+        self.assertIsInstance(instance, SpatialLocationField)
+        name, path, args, kwargs = instance.deconstruct()
+        new_instance = SpatialLocationField(*args, **kwargs)
+        self.assertEqual(instance.map_attrs, new_instance.map_attrs)
+
+    def test_form_field(self):
+        instance = SpatialLocationField()
+        self.assertTrue(isinstance(instance.formfield(), FormSpatialLocationField))
 
 
 class AddressAutoHiddenFieldTests(TestCase):
     def test_form_field(self):
         instance = AddressAutoHiddenField()
-        self.assertEqual(instance.formfield().__class__, FormAddressAutoHiddenField().__class__)
+        self.assertTrue(isinstance(instance.formfield(), FormAddressAutoHiddenField))
