@@ -3,4 +3,5 @@ include README.md
 recursive-include mapbox_location_field/static *
 recursive-include mapbox_location_field/templates *
 recursive-include mapbox_location_field/templatetags *
+recursive-include mapbox_location_field/spatial *
 recursive-include docs *
