@@ -1,7 +1,10 @@
 dist: xenial
 language: python
-services:
-  - postgresql
+addons:
+  postgresql: 9.6
+  apt:
+    packages:
+    - postgresql-9.6-postgis-2.3
 matrix:
     fast_finish: true
     include:
@@ -23,9 +26,9 @@ install:
   - pip install coverage
   - pip install coveralls
   - pip install -q Django==$DJANGO_VERSION
+
 before_script:
-  - psql -U postgres -c 'CREATE DATABASE locationfield;'
-  - psql -U postgres -c "CREATE EXTENSION postgis" -d locationfield
+  - psql -U postgres -c "create extension postgis"
 script:
   - coverage run --source=mapbox_location_field manage.py test
 after_success:
