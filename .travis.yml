@@ -1,10 +1,13 @@
 dist: xenial
 language: python
+sudo: true
 addons:
-  postgresql: 9.6
+  postgresql: '10'
   apt:
     packages:
-    - postgresql-9.6-postgis-2.3
+      - postgresql-10-postgis-2.4
+      - postgresql-10-postgis-2.4-scripts
+      - postgresql-client-10
 matrix:
     fast_finish: true
     include:
@@ -21,6 +24,9 @@ matrix:
       - { python: "3.7", env: DJANGO_VERSION=2.0 }
       - { python: "3.7", env: DJANGO_VERSION=2.1 }
       - { python: "3.7", env: DJANGO_VERSION=2.2 }
+before_install:
+  - sudo -u postgres psql -c "CREATE USER testuser WITH PASSWORD 'password'"
+  - sudo -u postgres psql -c "ALTER ROLE testuser SUPERUSER"
 
 install:
   - pip install coverage
