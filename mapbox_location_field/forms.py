@@ -61,3 +61,13 @@ class SpatialLocationField(PointField):
             return Point(parse_location(value), srid=4326)
         except ValueError:
             return None
+
+    def to_python(self, value):
+        """Transform the value to a Geometry object."""
+        if value in self.empty_values:
+            return None
+
+        if isinstance(value, Point):
+            return value
+
+        return Point(parse_location(value), srid=4326)
