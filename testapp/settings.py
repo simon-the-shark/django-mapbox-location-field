@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'django.contrib.gis',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -71,12 +72,17 @@ WSGI_APPLICATION = 'testapp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+POSTGIS_VERSION = (2, 4, 0)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'travis',
+        'USER': 'testuser',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': os.getenv('PGPORT'),
+    },
 }
 
 # Password validation

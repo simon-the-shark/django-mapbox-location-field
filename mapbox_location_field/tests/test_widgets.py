@@ -164,6 +164,11 @@ class MapInputTests(TestCase):
         self.assertEqual(parse_tuple_string("(123456,155413.452)"), (123456, 155413.452))
         self.assertEqual(parse_tuple_string("(123.456,155413.452)"), (123.456, 155413.452))
 
+        self.assertEqual(parse_tuple_string("SRID=4376POINT (123456 155413)"), (123456, 155413))
+        self.assertEqual(parse_tuple_string("SRID=4376POINT (123456.864534 155413452)"), (123456.864534, 155413452))
+        self.assertEqual(parse_tuple_string("SRID=4376POINT (123456 155413.452)"), (123456, 155413.452))
+        self.assertEqual(parse_tuple_string("SRID=4376POINT (123.456 155413.452)"), (123.456, 155413.452))
+
     def test_setting_center_point(self):
         widget = MapInput()
         widget.get_context("name", (1234.3, 2352145.6), {})

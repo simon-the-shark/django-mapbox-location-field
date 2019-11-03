@@ -14,6 +14,8 @@
  * [Instalation](#instalation)
 * [Configuration](#configuration)
 * [Usage](#usage)
+    * [PLAIN (non-spatial) db](#plain-database)
+    * [SPATIAL db](#spatial-database)
 * [Customization](#customization)
     * [map_attrs](#map_attrs)
     * [bootstrap](#bootstrap)
@@ -35,7 +37,8 @@ PS. Django 1.11 does not support Python 3.7 anymore.
 
 #### Browser support
 django-mapbox-location-field support all browsers, which are suported by mapbox gl js. Read more [here](https://docs.mapbox.com/help/troubleshooting/mapbox-browser-support/#mapbox-gl-js)
-
+#### Databases support
+It should work with every **spatial** and **plain** (non-spatial) database, that works with django and geodjango.
 # Live demo
 Curious how it works and looks like ? See live demo on https://django-mapbox-location-field.herokuapp.com
 Demo app uses [django-bootstrap4](https://github.com/zostera/django-bootstrap4) for a little better looking form fields.
@@ -58,44 +61,54 @@ MAPBOX_KEY = "pk.eyJ1IjoibWlnaHR5c2hhcmt5IiwiYSI6ImNqd2duaW4wMzBhcWI0M3F1MTRvbHB
 **PS. This above is only example access token. You have to paste here yours.**
 
 # Usage
-* Just create some model with LocationField.
-```python
-from django.db import models
-from mapbox_location_field.models import LocationField
+* ### PLAIN DATABASE
+    * Just create some model with LocationField.
+        ```python
+        from django.db import models
+        from mapbox_location_field.models import LocationField
 
-class SomeLocationModel(models.Model):
-    location = LocationField()
+        class SomeLocationModel(models.Model):
+            location = LocationField()
 
-```
+        ```
+* ### SPATIAL DATABASE
+    * Just create some model with SpatialLocationField.
+        ```python
+        from django.db import models
+        from mapbox_location_field.models import SpatialLocationField
+
+        class SomeLocationModel(models.Model):
+            location = SpatialLocationField()
+
+        ```
+
 * Create ModelForm
-```python
-from django import forms
-from .models import Location
+    ```python
+    from django import forms
+    from .models import Location
 
-class LocationForm(forms.ModelForm):
-    class Meta:
-        model = Location
-        fields = "__all__"
-```
-Of course you can also use CreateView, UpdateView or build Form yourself with mapbox_location_field.forms.LocationField
-
-
+    class LocationForm(forms.ModelForm):
+        class Meta:
+            model = Location
+            fields = "__all__"
+    ```
+    Of course you can also use CreateView, UpdateView or build Form yourself with `mapbox_location_field.forms.LocationField` or `mapbox_location_field.forms.SpatialLocationField`
 * Then just use it in html view. It can't be simpler!
 Paste this in your html head:
-```django
-{% load mapbox_location_field_tags %}
-{% location_field_includes %}
-{% include_jquery %}
-```
+    ```django
+    {% load mapbox_location_field_tags %}
+    {% location_field_includes %}
+    {% include_jquery %}
+    ```
 * And this in your body:
-```django
-   <form method="post">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" value="submit">
-    </form>
-{{ form.media }}
-```
+    ```django
+       <form method="post">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value="submit">
+        </form>
+    {{ form.media }}
+    ```
 * Your form is ready! Start your website and see how it looks. If you want to change something look to the [customization](#customization) section.
 
 # Customization

@@ -1,8 +1,14 @@
-from django.forms.widgets import TextInput
 from django.conf import settings
+from django.forms.widgets import TextInput
 
 
 def parse_tuple_string(tuple_string):
+    if "POINT" in tuple_string:
+        list = tuple_string.split(" ")[1:]
+        list[0] = list[0][1:]
+        list[1] = list[1][:-1]
+        return tuple(map(float, list))
+
     return tuple(map(float, tuple_string[1:-1].split(",")))
 
 

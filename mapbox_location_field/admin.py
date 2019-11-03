@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.forms import Media
 
+from .models import LocationField, AddressAutoHiddenField, SpatialLocationField
 from .widgets import MapAdminInput, AddressAutoHiddenInput
-from .models import LocationField, AddressAutoHiddenField
 
 
 class MapAdmin(admin.ModelAdmin):
@@ -10,6 +10,7 @@ class MapAdmin(admin.ModelAdmin):
     change_form_template = "mapbox_location_field/admin_change.html"
     formfield_overrides = {
         LocationField: {'widget': MapAdminInput},
+        SpatialLocationField: {'widget': MapAdminInput},
         AddressAutoHiddenField: {"widget": AddressAutoHiddenInput, }
 
     }
