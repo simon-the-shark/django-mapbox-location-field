@@ -1,9 +1,9 @@
 from django.contrib.gis.geos import Point
 from django.test import TestCase
 
-from mapbox_location_field.forms import LocationField, AddressAutoHiddenField, SpatialLocationField
+from mapbox_location_field.forms import LocationField, AddressAutoHiddenField
 from mapbox_location_field.widgets import MapInput, AddressAutoHiddenInput
-
+from mapbox_location_field.spatial.forms import SpatialLocationField
 
 class LocationFieldTests(TestCase):
 

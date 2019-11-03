@@ -3,8 +3,9 @@ from django.test import TestCase
 
 from mapbox_location_field.forms import AddressAutoHiddenField as FormAddressAutoHiddenField
 from mapbox_location_field.forms import LocationField as FormLocationField
-from mapbox_location_field.forms import SpatialLocationField as FormSpatialLocationField
-from mapbox_location_field.models import parse_location, LocationField, AddressAutoHiddenField, SpatialLocationField
+from mapbox_location_field.models import parse_location, LocationField, AddressAutoHiddenField
+from mapbox_location_field.spatial.forms import SpatialLocationField as FormSpatialLocationField
+from mapbox_location_field.spatial.models import SpatialLocationField
 
 
 class LocationFieldTests(TestCase):
