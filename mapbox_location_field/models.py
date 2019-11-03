@@ -65,6 +65,8 @@ class AddressAutoHiddenField(models.TextField):
 
 
 class SpatialLocationField(PointField):
+    """custom model field for storing location in spatial databases"""
+
     description = _("Location field for spatial databases, stores Points.")
 
     def __init__(self, *args, **kwargs):

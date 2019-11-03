@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.gis.forms import PointField
 from django.contrib.gis.geos import Point
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 from .widgets import MapInput, AddressAutoHiddenInput
 
@@ -49,6 +50,8 @@ class AddressAutoHiddenField(forms.CharField):
 
 
 class SpatialLocationField(PointField):
+    """custom form field for picking location for spatial databases"""
+
     def __init__(self, *args, **kwargs):
         map_attrs = kwargs.pop("map_attrs", None)
         self.widget = MapInput(map_attrs=map_attrs, )
