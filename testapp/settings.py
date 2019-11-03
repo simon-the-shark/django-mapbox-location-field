@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'testapp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-POSTGIS_VERSION = (2, 3, 0)
+POSTGIS_VERSION = (2, 4, 0)
 
 DATABASES = {
     'default': {
