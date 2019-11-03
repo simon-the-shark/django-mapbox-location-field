@@ -81,7 +81,7 @@ DATABASES = {
         'USER': 'testuser',
         'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': 5433,
+        'PORT': os.getenv('PGPORT'),
     },
 }
 
