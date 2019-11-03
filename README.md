@@ -75,7 +75,7 @@ MAPBOX_KEY = "pk.eyJ1IjoibWlnaHR5c2hhcmt5IiwiYSI6ImNqd2duaW4wMzBhcWI0M3F1MTRvbHB
     * Just create some model with SpatialLocationField.
         ```python
         from django.db import models
-        from mapbox_location_field.models import SpatialLocationField
+        from mapbox_location_field.spatial.models import SpatialLocationField
 
         class SomeLocationModel(models.Model):
             location = SpatialLocationField()
@@ -92,7 +92,7 @@ MAPBOX_KEY = "pk.eyJ1IjoibWlnaHR5c2hhcmt5IiwiYSI6ImNqd2duaW4wMzBhcWI0M3F1MTRvbHB
             model = Location
             fields = "__all__"
     ```
-    Of course you can also use CreateView, UpdateView or build Form yourself with `mapbox_location_field.forms.LocationField` or `mapbox_location_field.forms.SpatialLocationField`
+    Of course you can also use CreateView, UpdateView or build Form yourself with `mapbox_location_field.forms.LocationField` or `mapbox_location_field.spatial.forms.SpatialLocationField`
 * Then just use it in html view. It can't be simpler!
 Paste this in your html head:
     ```django
