@@ -13,16 +13,20 @@ class LocationFieldTests(TestCase):
     def assertRaisesValidationError(self, func, *args, **kwargs):
         with self.assertRaises(ValidationError):
             func(*args, **kwargs)
-
     def test_parse_location(self):
         self.assertEqual(parse_location("1,7"), (1, 7))
         self.assertEqual(parse_location("0.5542434352,7.14325463435626543674375"),
                          (0.5542434352, 7.14325463435626543674375))
 
+        self.assertEqual(parse_location("1,7", "lat"), (7, 1))
+        self.assertEqual(parse_location("0.5542434352,7.14325463435626543674375", "lat"),
+                         (7.14325463435626543674375, 0.5542434352))
+
         self.assertRaisesValidationError(parse_location, "1,2,4,7,6")
         self.assertRaisesValidationError(parse_location, "1")
         self.assertRaisesValidationError(parse_location, "1,xD")
         self.assertRaisesValidationError(parse_location, "xD,1")
+        self.assertRaisesValidationError(parse_location, "1,2", "alfhjksd")
 
     def test_LocationField(self):
         instance = LocationField()

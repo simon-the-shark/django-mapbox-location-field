@@ -11,7 +11,8 @@
 * [Why this?](#why-this)
 * [Live demo](#live-demo)
 * [Compatibility](#compatibility)
- * [Instalation](#instalation)
+* [Versions >1.4.0 note](#versions-140)
+* [Instalation](#instalation)
 * [Configuration](#configuration)
 * [Usage](#usage)
     * [PLAIN (non-spatial) db](#plain-database)
@@ -27,6 +28,9 @@
 I was searching for some django location field which uses mapbox and I could use in my project. I didn't find anything which suits my needs in 100% and that is why I created this simple django app. My philosopy was simplicity but I wanted to create complete solution for picking location.
 
 Feel free to open issues, make pull request and request some features or instructions. Let me know if you think it is not flexible enought.
+# Live demo
+Curious how it works and looks like ? See live demo on https://django-mapbox-location-field.herokuapp.com
+Demo app uses [django-bootstrap4](https://github.com/zostera/django-bootstrap4) for a little better looking form fields.
 # Compatibility
 Automatically tested on Travis CI on versions:
 
@@ -39,10 +43,10 @@ PS. Django 1.11 does not support Python 3.7 anymore.
 django-mapbox-location-field support all browsers, which are suported by mapbox gl js. Read more [here](https://docs.mapbox.com/help/troubleshooting/mapbox-browser-support/#mapbox-gl-js)
 #### Databases support
 It should work with every **spatial** and **plain** (non-spatial) database, that works with django and geodjango.
-# Live demo
-Curious how it works and looks like ? See live demo on https://django-mapbox-location-field.herokuapp.com
-Demo app uses [django-bootstrap4](https://github.com/zostera/django-bootstrap4) for a little better looking form fields.
-
+# Versions >1.4.0
+ Since version 1.4.0 the order of coordinates convention has been changed. Now the order is `longitude, latitude`. This change has been caused by support for spatial databases. But more user friendly is order `latitude, longitude`(google maps uses it). That's why coordinates are falsely swapped in frontend and then after POST request in form field are swapped back into `longitude, latitude` order and saved to database.
+ My conclusion is that the location is falsely swapped in fronend and if you create location without our custom form field or just operate on raw model in backend, you will have to use the `longitude, latitude` order.
+ Versions before 1.4.0 always uses `latitude, longitude` order.
 # Instalation
 Using pip:
     `pip install django-mapbox-location-field`

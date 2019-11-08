@@ -60,7 +60,7 @@ class MapInput(TextInput):
         default_map_attrs = {
             "style": "mapbox://styles/mapbox/outdoors-v11",
             "zoom": 13,
-            "center": [51.106715, 17.031645],
+            "center": [17.031645, 51.106715],
             "cursor_style": 'pointer',
             "marker_color": "red",
             "rotate": False,

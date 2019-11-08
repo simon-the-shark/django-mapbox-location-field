@@ -72,7 +72,7 @@ class MapInputTests(TestCase):
         settings.MAPBOX_KEY = "MY_COOL_MAPBOX_KEY"
 
         expected_js_list = ["var map_attr_style = 'mapbox://styles/mapbox/outdoors-v11'", "var map_attr_zoom = '13'",
-                            "var map_attr_center = [51.106715, 17.031645]", "var map_attr_cursor_style = 'pointer'",
+                            "var map_attr_center = [17.031645, 51.106715]", "var map_attr_cursor_style = 'pointer'",
                             "var map_attr_marker_color = 'red'", "var map_attr_rotate = false",
                             "var map_attr_geocoder = true",
                             "var map_attr_fullscreen_button = true", "var map_attr_navigation_buttons = true",
@@ -145,7 +145,7 @@ class MapInputTests(TestCase):
         self.equality_of_random_javascript(js[:-9], ["mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY'",
                                                      "var map_attr_style = 'mapbox://styles/mapbox/outdoors-v11'",
                                                      "var map_attr_zoom = '13'",
-                                                     'var map_attr_center = [51.106715, 17.031645]',
+                                                     'var map_attr_center = [17.031645, 51.106715]',
                                                      "var map_attr_cursor_style = 'pointer'",
                                                      "var map_attr_marker_color = 'red'", 'var map_attr_rotate = false',
                                                      'var map_attr_geocoder = true',

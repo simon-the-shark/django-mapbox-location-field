@@ -5,16 +5,26 @@ from django.utils.translation import ugettext_lazy as _
 from .widgets import MapInput, AddressAutoHiddenInput
 
 
-def parse_location(location_string):
+def reverse_tuple_string(location_string):
+    args = location_string.split(",")
+    return args[1] + "," + args[0]
+
+
+def parse_location(location_string, first_in_order="lng"):
     """parse and convert coordinates from string to tuple"""
 
     args = location_string.split(",")
     if len(args) != 2:
         raise ValidationError(_("Invalid input for a Location instance"))
 
-    lat = args[0]
-    lng = args[1]
-
+    if first_in_order == "lat":
+        lng = args[1]
+        lat = args[0]
+    elif first_in_order == 'lng':
+        lng = args[0]
+        lat = args[1]
+    else:
+        raise ValidationError(_("Invalid first letter for parsing location."))
     try:
         lat = float(lat)
     except ValueError:
@@ -24,7 +34,7 @@ def parse_location(location_string):
     except ValueError:
         raise ValidationError(_("Invalid input for a Location instance. Longitude must be convertible to float "))
 
-    return lat, lng
+    return lng, lat
 
 
 class LocationField(forms.CharField):
@@ -37,6 +47,9 @@ class LocationField(forms.CharField):
         super().__init__(*args, **kwargs)
         self.error_messages = {"required": "Please pick a location, it's required", }
 
+    def to_python(self, value):
+        return super().to_python(reverse_tuple_string(value))
+
 
 class AddressAutoHiddenField(forms.CharField):
     """custom form field which uses AddressAutoHiddenInput"""
@@ -45,5 +58,3 @@ class AddressAutoHiddenField(forms.CharField):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.label = ""
-
-
