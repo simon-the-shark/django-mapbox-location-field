@@ -11,7 +11,7 @@
 * [Why this?](#why-this)
 * [Live demo](#live-demo)
 * [Compatibility](#compatibility)
-* [Versions >1.4.0 note](#Versions->1.4.0)
+* [Versions >1.4.0 note](#versions-140)
 * [Instalation](#instalation)
 * [Configuration](#configuration)
 * [Usage](#usage)
