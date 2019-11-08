@@ -49,13 +49,13 @@ if (!mapboxgl.supported()) {
         function translate_to_string(obj) {
             var lat = obj.lat;
             var lng = obj.lng;
-            return lat + "," + lng
+            return lng + "," + lat
         }
 
         function translate_to_reversed_string(obj) {
             var lat = obj.lat;
             var lng = obj.lng;
-            return lng + "," + lat
+            return lat + "," + lng
         }
 
         function replace_order(array) {
@@ -66,14 +66,14 @@ if (!mapboxgl.supported()) {
         var map = new mapboxgl.Map({
             container: 'secret-id-map-mapbox-location-field',
             style: map_attr_style,
-            center: replace_order(map_attr_center),
+            center: map_attr_center,
             zoom: map_attr_zoom,
         });
         if (input.val()) {
             var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
-            marker.setLngLat(replace_order(map_attr_center))
+            marker.setLngLat(map_attr_center)
                 .addTo(map);
-            input.val(map_attr_center);
+            input.val(replace_order(map_attr_center));
         }
 
         var geocoder = new MapboxGeocoder({
@@ -118,13 +118,13 @@ if (!mapboxgl.supported()) {
 
         map.on("click", function (e) {
             $("div.mapboxgl-marker.mapboxgl-marker-anchor-center").not(".mapboxgl-user-location-dot").remove();
-            input.val(translate_to_string(e.lngLat));
+            input.val(translate_to_reversed_string(e.lngLat));
             var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
             marker.setLngLat(e.lngLat)
                 .addTo(map);
 
 
-            var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + translate_to_reversed_string(e.lngLat) + ".json?access_token=" + mapboxgl.accessToken;
+            var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + translate_to_string(e.lngLat) + ".json?access_token=" + mapboxgl.accessToken;
             $.get(url, function (data) {
                 reverse_name = data.features[0].place_name;
                 geocoder.setInput(reverse_name);

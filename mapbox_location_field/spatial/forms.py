@@ -1,6 +1,5 @@
-from django.contrib.gis.forms import PointField
+from django.contrib.gis.forms import PointField, ValidationError
 from django.contrib.gis.geos import Point
-from django.core.exceptions import ValidationError
 
 from ..forms import parse_location
 from ..widgets import MapInput
@@ -18,7 +17,7 @@ class SpatialLocationField(PointField):
 
     def clean(self, value):
         try:
-            return Point(parse_location(value), srid=4326)
+            return super().clean(value)
         except (ValueError, ValidationError):
             return None
 
@@ -30,4 +29,4 @@ class SpatialLocationField(PointField):
         if isinstance(value, Point):
             return value
 
-        return Point(parse_location(value), srid=4326)
+        return Point(parse_location(value, first_in_order="lat"), srid=4326)
