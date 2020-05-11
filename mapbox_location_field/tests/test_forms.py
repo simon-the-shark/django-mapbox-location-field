@@ -1,5 +1,4 @@
 from django.contrib.gis.geos import Point
-from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from mapbox_location_field.forms import LocationField, AddressAutoHiddenField, reverse_tuple_string
@@ -24,6 +23,7 @@ class LocationFieldTests(TestCase):
     def test_clean(self):
         field = LocationField()
         self.assertEqual("11,12", field.clean("12, 11"))
+
 
 class SpatialLocationFieldTests(TestCase):
 
@@ -66,6 +66,10 @@ class SpatialLocationFieldTests(TestCase):
 
     def test_reverse_tuple_string(self):
         self.assertEqual(reverse_tuple_string("1,2"), "2,1")
+
+    def test_empty_reverse_tuple_string(self):
+        self.assertEqual(reverse_tuple_string(""), "")
+
 
 class AddressAutoHiddenFieldTests(TestCase):
     def test_widget(self):

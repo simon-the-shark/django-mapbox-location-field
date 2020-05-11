@@ -6,6 +6,8 @@ from .widgets import MapInput, AddressAutoHiddenInput
 
 
 def reverse_tuple_string(location_string):
+    if location_string == "":
+        return location_string
     args = location_string.split(",")
     return args[1] + "," + args[0]
 
