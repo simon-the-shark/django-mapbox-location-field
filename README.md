@@ -1,4 +1,3 @@
-
  # django-mapbox-location-field
  [![Build Status](https://travis-ci.org/Simon-the-Shark/django-mapbox-location-field.svg?branch=master)](https://travis-ci.org/Simon-the-Shark/django-mapbox-location-field) [![Coverage Status](https://coveralls.io/repos/github/Simon-the-Shark/django-mapbox-location-field/badge.svg?branch=master)](https://coveralls.io/github/Simon-the-Shark/django-mapbox-location-field?branch=master)
  ![PyPI](https://img.shields.io/pypi/v/django-mapbox-location-field.svg)
@@ -22,6 +21,7 @@
     * [bootstrap](#bootstrap)
 * [Admin interface usage](#admin-interface-usage)
 * [AddressAutoHiddenField](#addressautohiddenfield)
+* [Multiple fields usage](#multiple-fields-usage)
 * [Technologies](#technologies)
 
 # Why this?
@@ -31,6 +31,7 @@ Feel free to open issues, make pull request and request some features or instruc
 # Live demo
 Curious how it works and looks like ? See live demo on https://django-mapbox-location-field.herokuapp.com
 Demo app uses [django-bootstrap4](https://github.com/zostera/django-bootstrap4) for a little better looking form fields.
+You can also use it as a code example, because it is available on [my github](https://github.com/Simon-the-Shark/live_demo_django_mapbox_location_field).
 # Compatibility
 Automatically tested on Travis CI on versions:
 
@@ -155,6 +156,7 @@ class Location(models.Model):
 * track_location_button - `<bool>`, whether show my location button is showed or not.
 * readonly - `<bool>`, whether user can type location in text input
 * placeholder - `<string>`, text input's placeholder
+* id - `<string>`, unique id for field, when your are using multiple fields (See more in [this section](#multiple-fields-usage)). When you use only one field, you don't have to define it, because default value is taken.
 
 ## bootstrap
 MapInput widget is fully compatibile with bootstrap library. I can even recommend to use it with [django-bootstrap4](https://github.com/zostera/django-bootstrap4) or [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms).
@@ -180,9 +182,19 @@ class Location(models.Model):
     location = LocationField()
     address = AddressAutoHiddenField()
 ```
-
+# Multiple fields usage
+Since version 1.6.0, it is now possible to use multiple LocationFields (or forms or widgets) as well as multiple AutoHiddenAddressFields. All you have to do is define unique `id` in `map_attrs`:
+```python
+location1 = LocationField(map_attrs={"id": "unique_id_1"})
+location2 = LocationField(map_attrs={"id": "unique_id_2"})
+```
+and then you can also use this ids as `map_id` in your AutoHiddenAddressFields:
+```python
+address1 = AddressAutoHiddenField(map_id="unique_id_1")
+address2 = AddressAutoHiddenField(map_id="unique_id_2")
+```
 # Technologies
 * Django
 * mapbox gl js
-* jquery
+* jQuery
 * html and css
