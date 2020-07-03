@@ -77,11 +77,13 @@ class MapInputTests(TestCase):
             "fullscreen_button": False,
             "navigation_buttons": False,
             "track_location_button": False,
+            "id": "test_map_id"
         }
 
         widget = MapInput(map_attrs=expected_map_attrs)
         result = widget.get_config_settings()
-        self.assertEqual(result, expected_map_attrs)
+        for key in expected_map_attrs.keys():
+            self.assertEqual(result[key], expected_map_attrs[key])
 
     def test_parse_tuple_string(self):
         self.assertEqual(parse_tuple_string("(123456, 155413)"), (123456, 155413))
