@@ -43,10 +43,11 @@ class MapInput(TextInput):
         }
         attrs.update(must_be_attrs)
         attrs["class"] = attrs.get("class", "") + " js-mapbox-input-location-field"
+        attrs["id"] = self.map_attrs.get("id", "map")
 
         contex = super().get_context(name, value, attrs)
         self.center_point = contex["widget"].get("value", False)
-
+        contex["id"] = attrs["id"]
         return contex
 
     def render(self, name, value, attrs=None, renderer=None):
@@ -68,6 +69,7 @@ class MapInput(TextInput):
             "fullscreen_button": True,
             "navigation_buttons": True,
             "track_location_button": True,
+            "id": "map"
         }
 
         if self.map_attrs is not None:
