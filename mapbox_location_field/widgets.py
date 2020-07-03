@@ -45,16 +45,11 @@ class MapInput(TextInput):
         attrs["class"] = attrs.get("class", "") + " js-mapbox-input-location-field"
         attrs["id"] = self.map_attrs.get("id", "map")
 
-        contex = super().get_context(name, value, attrs)
-        self.center_point = contex["widget"].get("value", False)
-        contex["id"] = attrs["id"]
-        return contex
-
-    def render(self, name, value, attrs=None, renderer=None):
-        """attaches js config vars to rendered html"""
-        rend = super().render(name, value, attrs, renderer)
-        rend += self.get_config_settings()
-        return rend
+        context = super().get_context(name, value, attrs)
+        self.center_point = context["widget"].get("value", False)
+        context["key"] = settings.MAPBOX_KEY
+        context["mapbox_attrs"] = self.get_config_settings()
+        return context
 
     def get_config_settings(self):
         """renders javascript configuration variables definitions"""
@@ -78,25 +73,7 @@ class MapInput(TextInput):
         if self.center_point:
             default_map_attrs["center"] = parse_tuple_string(self.center_point)
 
-        js = "<script>mapboxgl.accessToken = '{}';{}</script>".format(settings.MAPBOX_KEY,
-                                                                      self.map_attrs_to_javascript(default_map_attrs))
-        return js
-
-    @staticmethod
-    def map_attrs_to_javascript(map_attrs):
-        """renders javascript variables from dictionary of attrs"""
-        js = ""
-        js_pattern = "var map_attr_{key} = '{value}';"
-        js_pattern_literally = "var map_attr_{key} = {value};"
-        for key, value in map_attrs.items():
-            if type(value) == list or type(value) == tuple:
-                js += js_pattern_literally.format(key=key, value=list(value))
-            elif type(value) == bool:
-                val = str(value).lower()
-                js += js_pattern_literally.format(key=key, value=val)
-            else:
-                js += js_pattern.format(key=key, value=value)
-        return js
+        return default_map_attrs
 
 
 class MapAdminInput(MapInput):

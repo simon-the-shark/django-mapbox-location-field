@@ -1,3 +1,13 @@
+{% load transform_map_attrs_to_js %}
 {% include "default_django/input.html" %}
-<div id='{{ id }}-map-mapbox-location-field' class='location-field-map'></div>
-<div id='{{ id }}-geocoder-mapbox-location-field' class='location-field-geocoder'></div>
+<div id='{{ mapbox_attrs.id }}-map-mapbox-location-field' class='location-field-map'></div>
+<div id='{{ mapbox_attrs.id }}-geocoder-mapbox-location-field' class='location-field-geocoder'></div>
+<script>
+    mapboxgl.accessToken = '{{ key }}';
+    if (!map_attrs)
+        var map_attrs = {};
+    map_attrs["{{ mapbox_attrs.id }}"] = {};
+    {% for key, value in mapbox_attrs.items %}
+        {% transform_map_attrs_to_js mapbox_attrs.id key value %}
+    {% endfor %}
+</script>

@@ -62,20 +62,20 @@ if (!mapboxgl.supported()) {
             return [array[1], array[0]]
         }
 
-        $(".js-mapbox-input-location-field").each(function (index) {
+        $(".js-mapbox-input-location-field").each(function () {
             var input = $(this);
             var id = input.attr("id");
             var map = new mapboxgl.Map({
                 container: id + '-map-mapbox-location-field',
-                style: map_attr_style,
-                center: map_attr_center,
-                zoom: map_attr_zoom,
+                style: map_attrs[id].style,
+                center: map_attrs[id].center,
+                zoom: map_attrs[id].zoom,
             });
             if (input.val()) {
-                var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
-                marker.setLngLat(map_attr_center)
+                var marker = new mapboxgl.Marker({draggable: false, color: map_attrs[id].marker_color,});
+                marker.setLngLat(map_attrs[id].center)
                     .addTo(map);
-                input.val(replace_order(map_attr_center));
+                input.val(replace_order(map_attrs[id].center));
             }
 
             var geocoder = new MapboxGeocoder({
@@ -85,12 +85,12 @@ if (!mapboxgl.supported()) {
 
             });
 
-            map.getCanvas().style.cursor = map_attr_cursor_style;
-            if (!map_attr_rotate) {
+            map.getCanvas().style.cursor = map_attrs[id].cursor_style;
+            if (!map_attrs[id].rotate) {
                 map.dragRotate.disable();
                 map.touchZoomRotate.disableRotation();
             }
-            if (map_attr_track_location_button) {
+            if (map_attrs[id].track_location_button) {
                 map.addControl(new mapboxgl.GeolocateControl({
                     positionOptions: {
                         enableHighAccuracy: true
@@ -98,20 +98,20 @@ if (!mapboxgl.supported()) {
                     trackUserLocation: true,
                 }));
             }
-            if (map_attr_geocoder) {
+            if (map_attrs[id].geocoder) {
                 map.addControl(geocoder, "top-left");
             }
 
-            if (map_attr_fullscreen_button) {
+            if (map_attrs[id].fullscreen_button) {
                 map.addControl(new mapboxgl.FullscreenControl());
             }
-            if (map_attr_navigation_buttons) {
+            if (map_attrs[id].navigation_buttons) {
                 map.addControl(new mapboxgl.NavigationControl());
             }
             geocoder.on("result", function (e) {
                 $("div.mapboxgl-marker.mapboxgl-marker-anchor-center").not(".mapboxgl-user-location-dot").remove();
                 input.val(replace_order(e.result.geometry.coordinates));
-                var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
+                var marker = new mapboxgl.Marker({draggable: false, color: map_attrs[id].marker_color,});
                 marker.setLngLat(e.result.geometry.coordinates)
                     .addTo(map);
 
@@ -121,7 +121,7 @@ if (!mapboxgl.supported()) {
             map.on("click", function (e) {
                 $("#" + id + "-map-mapbox-location-field .mapboxgl-marker.mapboxgl-marker-anchor-center").not(".mapboxgl-user-location-dot").remove();
                 input.val(translate_to_reversed_string(e.lngLat));
-                var marker = new mapboxgl.Marker({draggable: false, color: map_attr_marker_color,});
+                var marker = new mapboxgl.Marker({draggable: false, color: map_attrs[id].marker_color,});
                 marker.setLngLat(e.lngLat)
                     .addTo(map);
 

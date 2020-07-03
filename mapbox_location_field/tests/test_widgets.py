@@ -11,11 +11,6 @@ class MapInputTests(TestCase):
         for statement in expected_list:
             self.assertIn(statement, outputed_list)
 
-    def equality_of_random_javascript(self, outputed_string, expected_list):
-        expected_list.append("")
-        outputed_list = outputed_string.split(";")
-        self.lists_equality_test(outputed_list, expected_list)
-
     def html_element_test(self, elem, start, end, expected_list):
         self.assertTrue(elem.startswith(start))
         self.assertTrue(elem.endswith(end))
@@ -50,43 +45,28 @@ class MapInputTests(TestCase):
         self.assertTrue(contex["widget"]["attrs"]["readonly"])
         self.assertTrue(contex["widget"]["attrs"]["class"].endswith(" js-mapbox-input-location-field"))
 
-    def test_map_attrs_to_javascript(self):
-        widget = MapInput()
-        map_attrs = {
-            "list": [1, 2],
-            "tuple": (1, 2),
-            "bool": True,
-            "string": "cool string",
-            "int": 1,
-            "float": 1.2,
-        }
-
-        javascript = widget.map_attrs_to_javascript(map_attrs)
-        expected_js_list = ["var map_attr_list = [1, 2]", "var map_attr_tuple = [1, 2]", "var map_attr_bool = true",
-                            "var map_attr_string = 'cool string'", "var map_attr_int = '1'",
-                            "var map_attr_float = '1.2'"]
-        self.equality_of_random_javascript(javascript, expected_js_list)
-
     def test_get_config_settings_defaults(self):
         widget = MapInput()
         settings.MAPBOX_KEY = "MY_COOL_MAPBOX_KEY"
 
-        expected_js_list = ["var map_attr_style = 'mapbox://styles/mapbox/outdoors-v11'", "var map_attr_zoom = '13'",
-                            "var map_attr_center = [17.031645, 51.106715]", "var map_attr_cursor_style = 'pointer'",
-                            "var map_attr_marker_color = 'red'", "var map_attr_rotate = false",
-                            "var map_attr_geocoder = true",
-                            "var map_attr_fullscreen_button = true", "var map_attr_navigation_buttons = true",
-                            "var map_attr_track_location_button = true"]
-
+        expected_map_attrs = {
+            "style": "mapbox://styles/mapbox/outdoors-v11",
+            "zoom": 13,
+            "center": [17.031645, 51.106715],
+            "cursor_style": 'pointer',
+            "marker_color": "red",
+            "rotate": False,
+            "geocoder": True,
+            "fullscreen_button": True,
+            "navigation_buttons": True,
+            "track_location_button": True,
+            "id": "map"
+        }
         result = widget.get_config_settings()
-        self.assertTrue(result.startswith("<script>mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY';"))
-        self.assertTrue(result.endswith("</script>"))
-        crippled_result = result[52:-9]
-
-        self.equality_of_random_javascript(crippled_result, expected_js_list)
+        self.assertEqual(result, expected_map_attrs)
 
     def test_get_config_settings_updated_with_map_attrs(self):
-        widget = MapInput(map_attrs={
+        expected_map_attrs = {
             "style": "cool style",
             "zoom": 90,
             "center": [1, 5.1],
@@ -96,62 +76,12 @@ class MapInputTests(TestCase):
             "geocoder": False,
             "fullscreen_button": False,
             "navigation_buttons": False,
-            "track_location_button": False, })
+            "track_location_button": False,
+        }
 
-        settings.MAPBOX_KEY = "MY_COOL_MAPBOX_KEY"
-
-        expected_js_list = ["var map_attr_style = 'cool style'", "var map_attr_zoom = '90'",
-                            "var map_attr_center = [1, 5.1]", "var map_attr_cursor_style = 'cell'",
-                            "var map_attr_marker_color = 'blue'", "var map_attr_rotate = true",
-                            "var map_attr_geocoder = false",
-                            "var map_attr_fullscreen_button = false", "var map_attr_navigation_buttons = false",
-                            "var map_attr_track_location_button = false"]
-
+        widget = MapInput(map_attrs=expected_map_attrs)
         result = widget.get_config_settings()
-
-        self.assertTrue(result.startswith("<script>mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY';"))
-        self.assertTrue(result.endswith("</script>"))
-        crippled_result = result[52:-9]
-
-        self.equality_of_random_javascript(crippled_result, expected_js_list)
-
-    def test_render(self):
-        settings.MAPBOX_KEY = "MY_COOL_MAPBOX_KEY"
-        widget = MapInput(map_attrs={"placeholder": "cool-placeholder"})
-
-        # expected_rend = '<input type="text" name="location" class="form-group js-mapbox-input-location-field" id="id_location" maxlength="63" required readonly placeholder="cool-placeholder">\n\n' + "<div id='secret-id-map-mapbox-location-field' class='location-field-map'></div>\n<div id='secret-id-geocoder-mapbox-location-field' class='location-field-geocoder'></div><script>mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY';var map_attr_style = 'mapbox://styles/mapbox/outdoors-v11';var map_attr_zoom = '13';var map_attr_center = [17.031645, 51.106715];var map_attr_cursor_style = 'pointer';var map_attr_marker_color = 'red';var map_attr_rotate = false;var map_attr_geocoder = true;var map_attr_fullscreen_button = true;var map_attr_navigation_buttons = true;var map_attr_track_location_button = true;</script>"
-
-        rend = widget.render("location", None,
-                             attrs={"maxlength": 63, "class": "form-group", "required": True, "id": "id_location", })
-
-        rend_list1 = rend.split("\n")
-        self.assertEqual(len(rend_list1), 4)
-
-        input = rend_list1[0]
-        empty_str = rend_list1[1]
-        map_div = rend_list1[2]
-        geocoder, js = rend_list1[3].split("<script>")
-
-        self.assertEqual(empty_str, "")
-        self.html_element_test(input, "<input ", ">", ['type="text"', 'name="location"', 'class="form-group',
-                                                       'js-mapbox-input-location-field"',
-                                                       'id="id_location"', 'maxlength="63"', 'required', 'readonly',
-                                                       'placeholder="cool-placeholder"'])
-        self.html_element_test(map_div, "<div ", "></div>",
-                               ["id='secret-id-map-mapbox-location-field'", "class='location-field-map'"])
-        self.html_element_test(geocoder, "<div ", "></div>",
-                               ["id='secret-id-geocoder-mapbox-location-field'", "class='location-field-geocoder'"])
-        self.assertTrue(js.endswith("</script>"))
-        self.equality_of_random_javascript(js[:-9], ["mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY'",
-                                                     "var map_attr_style = 'mapbox://styles/mapbox/outdoors-v11'",
-                                                     "var map_attr_zoom = '13'",
-                                                     'var map_attr_center = [17.031645, 51.106715]',
-                                                     "var map_attr_cursor_style = 'pointer'",
-                                                     "var map_attr_marker_color = 'red'", 'var map_attr_rotate = false',
-                                                     'var map_attr_geocoder = true',
-                                                     'var map_attr_fullscreen_button = true',
-                                                     'var map_attr_navigation_buttons = true',
-                                                     'var map_attr_track_location_button = true', ])
+        self.assertEqual(result, expected_map_attrs)
 
     def test_parse_tuple_string(self):
         self.assertEqual(parse_tuple_string("(123456, 155413)"), (123456, 155413))
@@ -173,27 +103,6 @@ class MapInputTests(TestCase):
         widget = MapInput()
         widget.get_context("name", (1234.3, 2352145.6), {})
         self.assertEqual(widget.center_point, '(1234.3, 2352145.6)')
-
-    def test_center_on_initial_marker(self):
-        widget = MapInput()
-        widget.center_point = "(123456.864534, 155413452.23)"  # tested before that assigned correctly
-
-        settings.MAPBOX_KEY = "MY_COOL_MAPBOX_KEY"
-
-        expected_js_list = ["var map_attr_style = 'mapbox://styles/mapbox/outdoors-v11'", "var map_attr_zoom = '13'",
-                            "var map_attr_center = [123456.864534, 155413452.23]",
-                            "var map_attr_cursor_style = 'pointer'",
-                            "var map_attr_marker_color = 'red'", "var map_attr_rotate = false",
-                            "var map_attr_geocoder = true",
-                            "var map_attr_fullscreen_button = true", "var map_attr_navigation_buttons = true",
-                            "var map_attr_track_location_button = true"]
-
-        result = widget.get_config_settings()
-        self.assertTrue(result.startswith("<script>mapboxgl.accessToken = 'MY_COOL_MAPBOX_KEY';"))
-        self.assertTrue(result.endswith("</script>"))
-        crippled_result = result[52:-9]
-
-        self.equality_of_random_javascript(crippled_result, expected_js_list)
 
 
 class AddressAutoHiddenInputTests(TestCase):

@@ -13,6 +13,7 @@ class LocationFieldTests(TestCase):
     def assertRaisesValidationError(self, func, *args, **kwargs):
         with self.assertRaises(ValidationError):
             func(*args, **kwargs)
+
     def test_parse_location(self):
         self.assertEqual(parse_location("1,7"), (1, 7))
         self.assertEqual(parse_location("0.5542434352,7.14325463435626543674375"),
