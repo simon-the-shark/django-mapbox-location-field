@@ -5,18 +5,6 @@ from mapbox_location_field.widgets import MapInput, parse_tuple_string, AddressA
 
 
 class MapInputTests(TestCase):
-
-    def lists_equality_test(self, outputed_list, expected_list):
-        self.assertEqual(len(outputed_list), len(expected_list))
-        for statement in expected_list:
-            self.assertIn(statement, outputed_list)
-
-    def html_element_test(self, elem, start, end, expected_list):
-        self.assertTrue(elem.startswith(start))
-        self.assertTrue(elem.endswith(end))
-        crippled_elem_list = elem[len(start):-len(end)].split(" ")
-        self.lists_equality_test(crippled_elem_list, expected_list)
-
     def test_map_attrs_defaults(self):
         widget = MapInput()
         self.assertEqual(widget.map_attrs, {})
@@ -108,7 +96,12 @@ class MapInputTests(TestCase):
 
 
 class AddressAutoHiddenInputTests(TestCase):
-    def test_get_contex_when_map_attrs_None(self):
+    def test_get_context_when_map_attrs_None(self):
         widget = AddressAutoHiddenInput()
         contex = widget.get_context("addres_field", None, None)
         self.assertTrue(contex["widget"]["attrs"]["class"].endswith(" js-mapbox-address-input-location-field"))
+
+    def test_get_context(self):
+        widget = AddressAutoHiddenInput(map_id="test_map_id")
+        context = widget.get_context("address_field", None, None)
+        self.assertEqual(context["map_id"], "test_map_id")

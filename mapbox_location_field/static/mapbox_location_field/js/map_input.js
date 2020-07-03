@@ -62,6 +62,7 @@ if (!mapboxgl.supported()) {
             return [array[1], array[0]]
         }
 
+        var geocoders = {};
         $(".js-mapbox-input-location-field").each(function () {
             var input = $(this);
             var id = input.attr("id");
@@ -84,7 +85,7 @@ if (!mapboxgl.supported()) {
                 localGeocoder: coordinatesGeocoder,
 
             });
-
+            geocoders[id] = geocoder;
             map.getCanvas().style.cursor = map_attrs[id].cursor_style;
             if (!map_attrs[id].rotate) {
                 map.dragRotate.disable();
@@ -115,7 +116,7 @@ if (!mapboxgl.supported()) {
                 marker.setLngLat(e.result.geometry.coordinates)
                     .addTo(map);
 
-                $(document).trigger("reverse-geocode", [e.result.place_name,])
+                $(document).trigger("reverse-geocode", [id, e.result.place_name,])
             });
 
             map.on("click", function (e) {
@@ -128,18 +129,25 @@ if (!mapboxgl.supported()) {
 
                 var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + translate_to_string(e.lngLat) + ".json?access_token=" + mapboxgl.accessToken;
                 $.get(url, function (data) {
-                    reverse_name = data.features[0].place_name;
+                    try {
+                        reverse_name = data.features[0].place_name;
+                    }
+                    catch
+                        (e) {
+                        reverse_name = "undefined address";
+                    }
                     geocoder.setInput(reverse_name);
-                    $(document).trigger("reverse-geocode", [reverse_name,]);
+                    $(document).trigger("reverse-geocode", [id, reverse_name,]);
                 });
 
             });
         });
 
-
-        var addressinput = $(".js-mapbox-address-input-location-field");
-        if (addressinput.val()) {
-            geocoder.setInput(addressinput.val());
-        }
+        $(".js-mapbox-address-input-location-field").each(function () {
+            var addressinput = $(this);
+            if (addressinput.val()) {
+                geocoders[addressinput.attr("id")].setInput(addressinput.val());
+            }
+        });
     });
 }

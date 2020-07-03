@@ -57,6 +57,8 @@ class AddressAutoHiddenField(forms.CharField):
     """custom form field which uses AddressAutoHiddenInput"""
     widget = AddressAutoHiddenInput()
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, *args, **kwargs):
+        map_id = kwargs.pop("map_id", "map")
+        self.widget = AddressAutoHiddenInput(map_id=map_id)
+        super().__init__(*args, **kwargs)
         self.label = ""

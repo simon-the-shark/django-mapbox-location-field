@@ -89,15 +89,22 @@ class AddressAutoHiddenInput(TextInput):
     """hidden text input which automatically fill itself with address from MapInput"""
     template_name = "mapbox_location_field/address_input.html"
 
+    def __init__(self, attrs=None, map_id="map"):
+        self.map_id = map_id
+        super().__init__(attrs)
+        self.label = ""
+
+    def get_context(self, name, value, attrs):
+        if attrs is None:
+            attrs = {}
+        attrs["class"] = attrs.get("class", "") + " js-mapbox-address-input-location-field"
+        context = super().get_context(name, value, attrs)
+
+        context["map_id"] = self.map_id
+        return context
+
     class Media:
         js = ("mapbox_location_field/js/address_input.js",)
         css = {
             "all": ("mapbox_location_field/css/address_input.css",)
         }
-
-    def get_context(self, name, value, attrs):
-        if attrs is None:
-            attrs = {}
-
-        attrs["class"] = attrs.get("class", "") + " js-mapbox-address-input-location-field"
-        return super().get_context(name, value, attrs)

@@ -56,7 +56,17 @@ class AddressAutoHiddenField(models.TextField):
     """custom model field for storing address"""
     description = _("Address field which automatically fill with address from LocationField.")
 
+    def __init__(self, *args, **kwargs):
+        self.map_id = kwargs.pop("map_id", "map")
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs["map_id"] = self.map_id
+        return name, path, args, kwargs
+
     def formfield(self, **kwargs):
         defaults = {'form_class': AddressAutoHiddenFormField}
         defaults.update(kwargs)
+        defaults.update({"map_id": self.map_id})
         return models.Field.formfield(self, **defaults)

@@ -79,3 +79,7 @@ class AddressAutoHiddenFieldTests(TestCase):
     def test_label(self):
         field = AddressAutoHiddenField()
         self.assertEqual(field.label, "")
+
+    def test_passing_map_id(self):
+        field = AddressAutoHiddenField(map_id="test_map_id")
+        self.assertEqual(field.widget.map_id, "test_map_id")

@@ -72,6 +72,13 @@ class SpatialLocationFieldTests(TestCase):
 
 
 class AddressAutoHiddenFieldTests(TestCase):
+    def test_field(self):
+        instance = AddressAutoHiddenField()
+        self.assertIsInstance(instance, AddressAutoHiddenField)
+        name, path, args, kwargs = instance.deconstruct()
+        new_instance = AddressAutoHiddenField(*args, **kwargs)
+        self.assertEqual(instance.map_id, new_instance.map_id)
+
     def test_form_field(self):
         instance = AddressAutoHiddenField()
         self.assertTrue(isinstance(instance.formfield(), FormAddressAutoHiddenField))

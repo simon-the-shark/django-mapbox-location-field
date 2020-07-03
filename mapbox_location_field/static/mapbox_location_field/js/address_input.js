@@ -1,3 +1,3 @@
-$(document).on("reverse-geocode", function (e, input) {
-    $("#secret-id-address-mapbox-location-field").val(input);
+$(document).on("reverse-geocode", function (e, map_id, input) {
+    $("#" + map_id + ".js-mapbox-address-input-location-field").val(input);
 });

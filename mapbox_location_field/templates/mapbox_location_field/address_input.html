@@ -1,2 +1,2 @@
-<input id="secret-id-address-mapbox-location-field" type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %}
+<input id="{{ map_id }}" type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %}
        value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "default_django/attrs.html" %}>
