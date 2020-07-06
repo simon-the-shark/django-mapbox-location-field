@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from .forms import AddressAutoHiddenField as AddressAutoHiddenFormField, parse_location
+from .forms import AddressAutoHiddenField as AddressAutoHiddenFormField, parse_location, ValidationError
 from .forms import LocationField as LocationFormField
 
 
@@ -39,6 +39,9 @@ class LocationField(models.CharField):
         if value is None:
             return value
 
+        if isinstance(value, str):
+            return self.save_string(value)
+
         return "{},{}".format(value[0], value[1])
 
     def formfield(self, **kwargs):
@@ -50,6 +53,17 @@ class LocationField(models.CharField):
     def value_to_string(self, obj):
         value = self.value_from_object(obj)
         return self.get_prep_value(value)
+
+    def save_string(self, value):
+        """protect db from invalid string value"""
+        try:
+            parse_location(value)
+        except ValidationError:
+            if self.null:
+                return None
+            else:
+                return "0,0"
+        return value
 
 
 class AddressAutoHiddenField(models.TextField):
