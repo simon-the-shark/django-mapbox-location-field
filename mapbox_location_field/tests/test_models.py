@@ -56,6 +56,18 @@ class LocationFieldTests(TestCase):
         instance = LocationField()
         self.assertTrue(isinstance(instance.formfield(), FormLocationField))
 
+    def test_save_string(self):
+        instance = LocationField()
+        self.assertEqual("117, 112", instance.save_string("117, 112"))
+        self.assertEqual("117,112", instance.save_string("117,112"))
+        self.assertEqual("0,0", instance.save_string("45678"))
+
+    def test_save_string_nullable(self):
+        instance = LocationField(null=True)
+        self.assertEqual("117, 112", instance.save_string("117, 112"))
+        self.assertEqual("117,112", instance.save_string("117,112"))
+        self.assertIsNone(instance.save_string("8346"))
+
 
 class SpatialLocationFieldTests(TestCase):
 
