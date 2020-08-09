@@ -164,12 +164,21 @@ MapInput widget is fully compatibile with bootstrap library. I can even recommen
 # Admin interface usage
 First create some model with location field like in [usage section](#usage).
 Then register it in admin interface like this:
+* ####Plain:
 ```python
 from django.contrib import admin
 from .models import Location
 from mapbox_location_field.admin import MapAdmin
 
 admin.site.register(Location, MapAdmin)
+```
+* ####Spatial:
+```python
+from django.contrib import admin
+from .models import Location
+from mapbox_location_field.spatial.admin import SpatialMapAdmin
+
+admin.site.register(Location, SpatialMapAdmin)
 ```
 In example above, Location is name of your model.
 Everything from [customization section](#customization) also works in admin interface.
