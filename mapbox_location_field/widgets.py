@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.forms import Media
 from django.forms.widgets import TextInput
 
 
@@ -106,9 +107,7 @@ class MapAdminInput(MapInput):
 
     @property
     def media(self):
-        media = super().media
-        media._js_lists.clear()
-        return media
+        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
 
 
 class AddressHiddenAdminInput(AddressAutoHiddenInput):
@@ -116,6 +115,4 @@ class AddressHiddenAdminInput(AddressAutoHiddenInput):
 
     @property
     def media(self):
-        media = super().media
-        media._js_lists.clear()
-        return media
+        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
