@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.test import TestCase
 
-from mapbox_location_field.widgets import MapInput, parse_tuple_string, AddressAutoHiddenInput
+from mapbox_location_field.widgets import MapInput, parse_tuple_string, AddressAutoHiddenInput, MapAdminInput, \
+    AddressHiddenAdminInput
 
 
 class MapInputTests(TestCase):
@@ -105,3 +106,15 @@ class AddressAutoHiddenInputTests(TestCase):
         widget = AddressAutoHiddenInput(map_id="test_map_id")
         context = widget.get_context("address_field", None, None)
         self.assertEqual(context["map_id"], "test_map_id")
+
+
+class AdminWidgetsTests(TestCase):
+    def test_map_widget_media(self):
+        widget = MapAdminInput()
+        media = widget.media
+        self.assertEqual(media._js.length, 0)
+
+    def test_address_widget_media(self):
+        widget = AddressHiddenAdminInput()
+        media = widget.media
+        self.assertEqual(media._js.length, 0)

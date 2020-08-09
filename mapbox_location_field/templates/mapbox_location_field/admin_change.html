@@ -6,5 +6,8 @@
     {{ block.super }}
 {% endblock %}
 {% block footer %}
-    {{ map_input_media }}
+{{block.super}}
+    {%if bottom_media%}
+        {{bottom_media}}
+    {%endif%}
 {% endblock %}
