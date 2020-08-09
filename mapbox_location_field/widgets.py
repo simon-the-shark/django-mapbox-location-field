@@ -107,7 +107,7 @@ class MapAdminInput(MapInput):
 
     @property
     def media(self):
-        return Media(css={"all": ("mapbox_location_field/css/address_input.css",)})
+        return Media(css={"all": ("mapbox_location_field/css/map_input.css",)})
 
 
 class AddressHiddenAdminInput(AddressAutoHiddenInput):
