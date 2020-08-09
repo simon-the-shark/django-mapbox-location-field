@@ -112,9 +112,9 @@ class AdminWidgetsTests(TestCase):
     def test_map_widget_media(self):
         widget = MapAdminInput()
         media = widget.media
-        self.assertEqual(media._js.length, 0)
+        self.assertEqual(len(media._js), 0)
 
     def test_address_widget_media(self):
         widget = AddressHiddenAdminInput()
         media = widget.media
-        self.assertEqual(media._js.length, 0)
+        self.assertEqual(len(media._js), 0)
