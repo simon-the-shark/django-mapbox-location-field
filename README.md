@@ -167,21 +167,50 @@ Then register it in admin interface like this:
 * #### Plain:
 ```python
 from django.contrib import admin
-from .models import Location
+from .models import SomeLocationModel
 from mapbox_location_field.admin import MapAdmin
 
-admin.site.register(Location, MapAdmin)
+admin.site.register(SomeLocationModel, MapAdmin)
 ```
 * #### Spatial:
 ```python
 from django.contrib import admin
-from .models import Location
+from .models import SomeLocationModel
 from mapbox_location_field.spatial.admin import SpatialMapAdmin
 
-admin.site.register(Location, SpatialMapAdmin)
+admin.site.register(SomeLocationModel, SpatialMapAdmin)
 ```
-In example above, Location is name of your model.
-Everything from [customization section](#customization) also works in admin interface.
+* #### Admin customization:
+Unfortunetly I haven't found any solution that pass [map_attrs](#map_attrs) automatically from model definition.
+The only working way of [customization](#customization) that works in admin panel is overriding the modelform. 
+
+```python
+from django.contrib import admin
+from django.forms import ModelForm
+from mapbox_location_field.admin import MapAdmin
+from mapbox_location_field.forms import LocationField
+
+from .models import SomeLocationModel
+
+
+class PlaceForm(ModelForm):
+    class Meta:
+        model = Place
+        fields = "__all__"
+
+    location = LocationField(map_attrs={"style": "mapbox://styles/mapbox/satellite-v9"})
+
+
+class MyMapAdmin(MapAdmin):
+    form = PlaceForm
+
+
+admin.site.register(SomeLocationModel, MyMapAdmin)
+```
+For spatial field replace the `mapbox_location_field.admin.MapAdmin` with the `mapbox_location_field.spatial.admin.SpatialMapAdmin` 
+and the `mapbox_location_field.forms.LocationField` with `mapbox_location_field.spatial.forms.LocationField`
+
+In examples above, `SomeLocationModel` is name of your model, like in [usage section](#usage).
 
 # AddressAutoHiddenField
 AddressAutoHiddenField is field for storing address. It uses AddressAutoHiddenInput which is hidden and when you place your marker on map, automatically fill itself with proper address.
