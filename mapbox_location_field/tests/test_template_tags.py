@@ -1,6 +1,7 @@
 from django.template import Template, Context
 from django.test import SimpleTestCase
 
+from mapbox_location_field.templatetags.mapbox_location_field_tags import tuple_to_array
 from mapbox_location_field.templatetags.transform_map_attrs_to_js import transform_map_attrs_to_js
 
 
@@ -67,3 +68,8 @@ class TransformMapAttrsToJsTest(SimpleTestCase):
         result = transform_map_attrs_to_js("test-id", "test_key", 5.9)
         expected = "map_attrs['test-id'].test_key = '5.9';"
         self.assertEqual(expected, result)
+
+
+class TupleToArrayTest(SimpleTestCase):
+    def test(self):
+        self.assertEqual([12.0, 17.77], tuple_to_array((12.0, 17.77)))

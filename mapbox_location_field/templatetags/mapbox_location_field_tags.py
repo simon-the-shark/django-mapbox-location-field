@@ -14,3 +14,11 @@ def location_field_includes():
 def include_jquery():
     return mark_safe(
         "<script src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT' crossorigin='anonymous' ></script>")
+
+
+@register.filter
+@register.simple_tag
+def tuple_to_array(coordinates_tuple):
+    return list(coordinates_tuple)
+
+
