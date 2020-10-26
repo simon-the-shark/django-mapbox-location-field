@@ -195,7 +195,8 @@ address2 = AddressAutoHiddenField(map_id="unique_id_2")
 ```  
 # Troubleshooting  
 * #### Usage of the plain field's value in javascript ( [Issue #21](https://github.com/Simon-the-Shark/django-mapbox-location-field/issues/21))
-	In case of the plain field, the python representation of coordinates is a  [tuple](https://www.w3schools.com/python/python_tuples.asp). And  e.g Mapbox's requires a [javascript's array](https://www.w3schools.com/js/js_arrays.asp) when placing a marker on a map, which has identical syntax as  [Python's list](https://www.w3schools.com/python/python_lists.asp). In order to make the trasformation as easy as possible, since `v1.6.4` there's a special filter and a tag. 
+	In case of the plain field, the python representation of coordinates is a  [tuple](https://www.w3schools.com/python/python_tuples.asp). And  e.g Mapbox's requires a [javascript's array](https://www.w3schools.com/js/js_arrays.asp) when placing a marker on a map, which has identical syntax as  [Python's list](https://www.w3schools.com/python/python_lists.asp). In order to make the trasformation as easy as possible, since `v1.6.4` you can use a special filter or a tag (
+choose your preferred way)
 	```Django
 	{% load mapbox_location_field_tags %}
 	<script>
