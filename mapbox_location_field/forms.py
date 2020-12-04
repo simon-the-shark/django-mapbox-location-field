@@ -44,9 +44,9 @@ class LocationField(forms.CharField):
 
     def __init__(self, *args, **kwargs):
         map_attrs = kwargs.pop("map_attrs", None)
-        self.widget = MapInput(map_attrs=map_attrs, )
-
         super().__init__(*args, **kwargs)
+
+        self.widget = MapInput(map_attrs=map_attrs, )
         self.error_messages = {"required": "Please pick a location, it's required", }
 
     def to_python(self, value):
@@ -59,6 +59,7 @@ class AddressAutoHiddenField(forms.CharField):
 
     def __init__(self, *args, **kwargs):
         map_id = kwargs.pop("map_id", "map")
-        self.widget = AddressAutoHiddenInput(map_id=map_id)
         super().__init__(*args, **kwargs)
+
+        self.widget = AddressAutoHiddenInput(map_id=map_id)
         self.label = ""
