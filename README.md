@@ -87,7 +87,8 @@ MAPBOX_KEY = "pk.eyJ1IjoibWlnaHR5c2hhcmt5IiwiYSI6ImNqd2duaW4wMzBhcWI0M3F1MTRvbHB
  from django import forms from .models import Location  
  class LocationForm(forms.ModelForm):  
 	 class Meta:  
-		 model = Location fields = "__all__" 
+		 model = Location 
+		 fields = "__all__" 
  ```  
  Of course you can also use CreateView, UpdateView or build Form yourself with `mapbox_location_field.forms.LocationField` or `mapbox_location_field.spatial.forms.SpatialLocationField` 
 * Then just use it in html view. It can't be simpler!  
