@@ -1,3 +1,4 @@
+
  # django-mapbox-location-field
  [![Build Status](https://travis-ci.org/Simon-the-Shark/django-mapbox-location-field.svg?branch=master)](https://travis-ci.org/Simon-the-Shark/django-mapbox-location-field) [![Coverage Status](https://coveralls.io/repos/github/Simon-the-Shark/django-mapbox-location-field/badge.svg?branch=master)](https://coveralls.io/github/Simon-the-Shark/django-mapbox-location-field?branch=master)
  ![PyPI](https://img.shields.io/pypi/v/django-mapbox-location-field.svg) ![PyPI - Downloads](https://img.shields.io/pypi/dm/django-mapbox-location-field)
@@ -67,40 +68,63 @@ MAPBOX_KEY = "pk.eyJ1IjoibWlnaHR5c2hhcmt5IiwiYSI6ImNqd2duaW4wMzBhcWI0M3F1MTRvbHB
 **PS. This above is only example access token. You have to paste here yours.**  
   
 # Usage  
-* ### PLAIN DATABASE  
- * Just create some model with LocationField.  
-        ```python  
+### PLAIN DATABASE  
+ * Just create some model with LocationField.   
+ ```python  
  from django.db import models from mapbox_location_field.models import LocationField  
  class SomeLocationModel(models.Model):  
- location = LocationField()  
-  
- ```* ### SPATIAL DATABASE  
+	 location = LocationField()  
+ ```
+### SPATIAL DATABASE  
  * Just create some model with SpatialLocationField.  
-        ```python  
+```python  
  from django.db import models from mapbox_location_field.spatial.models import SpatialLocationField  
  class SomeLocationModel(models.Model):  
- location = SpatialLocationField()  
-  
- ```  
+	 location = SpatialLocationField()    
+ ```
 * Create ModelForm  
-    ```python  
+ ```python  
  from django import forms from .models import Location  
  class LocationForm(forms.ModelForm):  
- class Meta:  
- model = Location fields = "__all__" ```  Of course you can also use CreateView, UpdateView or build Form yourself with `mapbox_location_field.forms.LocationField` or `mapbox_location_field.spatial.forms.SpatialLocationField`  
+	 class Meta:  
+		 model = Location fields = "__all__" 
+ ```  
+ Of course you can also use CreateView, UpdateView or build Form yourself with `mapbox_location_field.forms.LocationField` or `mapbox_location_field.spatial.forms.SpatialLocationField` 
 * Then just use it in html view. It can't be simpler!  
 Paste this in your html head:  
-    ```django  
- {% load mapbox_location_field_tags %} {% location_field_includes %} {% include_jquery %} ```* And this in your body:  
-    ```django  
- <form method="post"> {% csrf_token %} {{form}} <input type="submit" value="submit"> </form> {{ form.media }} ```* Your form is ready! Start your website and see how it looks. If you want to change something look to the [customization](#customization) section.  
-  
+```django  
+ {% load mapbox_location_field_tags %} 
+ {% location_field_includes %}
+ {% include_jquery %}
+ ```
+ * And this in your body:  
+ ```django  
+ <form method="post"> {% csrf_token %} 
+	{{form}}
+	<input type="submit" value="submit"> 
+</form> 
+{{ form.media }}
+ ```
+ * Your form is ready! Start your website and see how it looks. If you want to change something look to the [customization](#customization) section.  
+ 
 # Customization  
 In order to change few things you have to use `map_attrs` dictionary.  
 Default `map_attrs` looks like this:  
 ```python  
 default_map_attrs = {  
- "style": "mapbox://styles/mapbox/outdoors-v11", "zoom": 13, "center": [17.031645, 51.106715], "cursor_style": 'pointer', "marker_color": "red", "rotate": False, "geocoder": True, "fullscreen_button": True, "navigation_buttons": True, "track_location_button": True, "readonly": True, "placeholder": "Pick a location on map below", }```  
+ "style": "mapbox://styles/mapbox/outdoors-v11",
+ "zoom": 13,
+ "center": [17.031645, 51.106715],
+ "cursor_style": 'pointer',
+ "marker_color": "red",
+ "rotate": False,
+ "geocoder": True,
+ "fullscreen_button": True,
+ "navigation_buttons": True,
+ "track_location_button": True, 
+ "readonly": True,
+ "placeholder": "Pick a location on map below", }
+ ```  
 To change some values, just pass it when you creates model.  
 ```python  
 from django.db import models  
@@ -175,8 +199,8 @@ choose your preferred way)
 	```Django
 	{% load mapbox_location_field_tags %}
 	<script>
-	var lngLatWithFilter = {{object.location | tuple_to_array }};
-	var lngLatWithTag = {% tuple_to_array object.location %};
+		var lngLatWithFilter = {{object.location | tuple_to_array }};
+		var lngLatWithTag = {% tuple_to_array object.location %};
 	
 	// These are just two ways, which give the same result
 	// Now you can use one of this variables as an array
