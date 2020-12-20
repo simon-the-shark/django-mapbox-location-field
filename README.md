@@ -27,11 +27,11 @@
 * [Technologies](#technologies)  
   
 # Why this?  
-I was searching for some django location field which uses mapbox and I could use in my project. I didn't find anything which suits my needs in 100% and that is why I created this simple django app. My philosopy was simplicity but I wanted to create complete solution for picking location.  
+I was searching for some django location field which uses mapbox to use it in my project. Hovewer I didn't find anything which suited my needs in 100% and that's why I created this simple django app. My philosopy was simplicity but I wanted to create complete solution for picking location.  
   
-Feel free to open issues, make pull request and request some features or instructions. Let me know if you think it is not flexible enought.  
+Feel free to open issues, make pull request and request some features or instructions. Let me know if you think it is not flexible enough.  
 # Live demo  
-Curious how it works and looks like ? See live demo on https://django-mapbox-location-field.herokuapp.com  
+Curious how it works and looks like? See live demo on https://django-mapbox-location-field.herokuapp.com  
 Demo app uses [django-bootstrap4](https://github.com/zostera/django-bootstrap4) for a little better looking form fields.  
 You can also use it as a code example, because it is available on [my github](https://github.com/Simon-the-Shark/live_demo_django_mapbox_location_field).  
 # Compatibility  
