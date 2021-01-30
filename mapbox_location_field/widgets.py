@@ -22,8 +22,8 @@ class MapInput(TextInput):
         if map_attrs is None:
             map_attrs = {}
         self.map_attrs = map_attrs
-        self.readonly = self.map_attrs.pop("readonly", True)
-        self.placeholder = self.map_attrs.pop("placeholder", "Pick a location on map below")
+        self.readonly = self.map_attrs.get("readonly", True)
+        self.placeholder = self.map_attrs.get("placeholder", "Pick a location on map below")
         self.center_point = False
 
         super().__init__(attrs)
