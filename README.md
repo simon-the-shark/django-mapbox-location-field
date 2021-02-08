@@ -12,7 +12,7 @@
 * [Live demo](#live-demo)  
 * [Compatibility](#compatibility)  
 * [Versions >1.4.0 note](#versions-140)  
-* [Instalation](#instalation)  
+* [Installation](#installation)  
 * [Configuration](#configuration)  
 * [Usage](#usage)  
   * [PLAIN (non-spatial) db](#plain-database)  
@@ -27,7 +27,7 @@
 * [Technologies](#technologies)  
   
 # Why this?  
-I was searching for some django location field which uses mapbox to use it in my project. Hovewer I didn't find anything which suited my needs in 100% and that's why I created this simple django app. My philosopy was simplicity but I wanted to create complete solution for picking location.  
+I was searching for some django location field which uses mapbox to use it in my project. However, I didn't find anything which suited my needs in 100% and that's why I created this simple django app. My philosophy was simplicity, but I wanted to create complete solution for picking location.  
   
 Feel free to open issues, make pull request and request some features or instructions. Let me know if you think it is not flexible enough.  
 # Live demo  
@@ -43,14 +43,14 @@ Automatically tested on Travis CI on versions:
 PS. Django 1.11 does not support Python 3.7 anymore.  
   
 #### Browser support  
-django-mapbox-location-field support all browsers, which are suported by mapbox gl js. Read more [here](https://docs.mapbox.com/help/troubleshooting/mapbox-browser-support/#mapbox-gl-js)  
+django-mapbox-location-field support all browsers, which are supported by mapbox gl js. Read more [here](https://docs.mapbox.com/help/troubleshooting/mapbox-browser-support/#mapbox-gl-js)  
 #### Databases support  
 It should work with every **spatial** and **plain** (non-spatial) database, that works with django and geodjango.  
 # Versions >1.4.0  
-  Since version 1.4.0 the order of coordinates convention has been changed. Now the order is `longitude, latitude`. This change has been caused by support for spatial databases. But more user friendly is order `latitude, longitude`(google maps uses it). That's why coordinates are falsely swapped in frontend and then after POST request in form field are swapped back into `longitude, latitude` order and saved to database.  
- My conclusion is that the location is falsely swapped in fronend and if you create location without our custom form field or just operate on raw model in backend, you will have to use the `longitude, latitude` order.  
+  Since version 1.4.0 the order of coordinates convention has been changed. Now the order is `longitude, latitude`. This change has been caused by support for spatial databases. Nevertheless, more user-friendly is order `latitude, longitude`(Google Maps uses it). That's why coordinates are falsely swapped in frontend and then after POST request in form field are swapped back into `longitude, latitude` order and saved to database.  
+ My conclusion is that the location is falsely swapped in frontend and if you create location without our custom form field or just operate on a raw model in the backend, you will have to use the `longitude, latitude` order.  
  Versions before 1.4.0 always uses `latitude, longitude` order.  
-# Instalation  
+# Installation  
 Using pip:  
     `pip install django-mapbox-location-field`  
   
@@ -61,7 +61,7 @@ Using pip:
 INSTALLED_APPS += ("mapbox_location_field",)  
 ```  
   
-* Define [MAPBOX_KEY](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/) in your settings file. This is vulnerable information which has to be passed to frontend, so it can be easily access by user. To ensure your safety, I would recommend using [url restrictions](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/#url-restrictions) and [public scopes](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/#scopes). More information on linked websites.  
+* Define [MAPBOX_KEY](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/) in your settings file. This is vulnerable information which has to be passed to frontend, so it can be easily accessed by user. To ensure your safety, I would recommend using [url restrictions](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/#url-restrictions) and [public scopes](https://docs.mapbox.com/help/how-mapbox-works/access-tokens/#scopes). More information on linked websites.  
 ```python  
 MAPBOX_KEY = "pk.eyJ1IjoibWlnaHR5c2hhcmt5IiwiYSI6ImNqd2duaW4wMzBhcWI0M3F1MTRvbHB0dWcifQ.1sDAD43q0ktK1Sr374xGfw"  
 ```  
@@ -90,7 +90,7 @@ MAPBOX_KEY = "pk.eyJ1IjoibWlnaHR5c2hhcmt5IiwiYSI6ImNqd2duaW4wMzBhcWI0M3F1MTRvbHB
 		 model = Location 
 		 fields = "__all__" 
  ```  
- Of course you can also use CreateView, UpdateView or build Form yourself with `mapbox_location_field.forms.LocationField` or `mapbox_location_field.spatial.forms.SpatialLocationField` 
+ Of course, you can also use CreateView, UpdateView or build Form yourself with `mapbox_location_field.forms.LocationField` or `mapbox_location_field.spatial.forms.SpatialLocationField` 
 * Then just use it in html view. It can't be simpler!  
 Paste this in your html head:  
 ```django  
@@ -127,7 +127,7 @@ default_map_attrs = {
  "readonly": True,
  "placeholder": "Pick a location on map below", }
  ```  
-To change some values, just pass it when you creates model.  
+To change some values, just pass it when you create model.  
 ```python  
 from django.db import models  
 from mapbox_location_field.models import LocationField  
@@ -141,17 +141,17 @@ class Location(models.Model):
 * center - `<list>` or `<tuple>` of `<float>`s, defaults map's center point in [`latitude`, `longitude`]  
 * cursor_style - `<string>`, css cursor style. Read more [here](https://www.w3schools.com/cssref/pr_class_cursor.asp).  
 * marker_color - `<string>` css color property. Read more [here](https://www.w3schools.com/cssref/css_colors_legal.asp)  and [here](https://www.w3schools.com/cssref/css_colors.asp).  
-* rotate - `<bool>`, whether you can rotate map with right mouse click or not.  
+* rotate - `<bool>`, whether you can rotate the map with right mouse click or not.  
 * geocoder -`<bool>`, whether geocoder searcher is showed or not.  
 * fullscreen_button - `<bool>`, whether fullscreen button is showed or not.  
 * navigation_buttons - `<bool>`, whether navigation buttons are showed or not.  
 * track_location_button - `<bool>`, whether show my location button is showed or not.  
 * readonly - `<bool>`, whether user can type location in text input  
 * placeholder - `<string>`, text input's placeholder  
-* id - `<string>`, unique id for field, when your are using multiple fields (See more in [this section](#multiple-fields-usage)). When you use only one field, you don't have to define it, because default value is taken.  
+* id - `<string>`, unique id for the field, when you are using multiple fields (See more in [this section](#multiple-fields-usage)). When you use only one field, you don't have to define it, because default value is taken.  
   
 ## bootstrap  
-MapInput widget is fully compatibile with bootstrap library. I can even recommend to use it with [django-bootstrap4](https://github.com/zostera/django-bootstrap4) or [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms).  
+MapInput widget is fully compatible with bootstrap library. I can even recommend using it with [django-bootstrap4](https://github.com/zostera/django-bootstrap4) or [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms).  
   
 # Admin interface usage  
 First create some model with location field like in [usage section](#usage).  
@@ -176,7 +176,7 @@ admin.site.register(SomeLocationModel, SpatialMapAdmin)
 Since `v1.7.0` admin customization should work out of the box, automatically using the `map_attrs` from model definition. 
   
 # AddressAutoHiddenField  
-AddressAutoHiddenField is field for storing address. It uses AddressAutoHiddenInput which is hidden and when you place your marker on map, automatically fill itself with proper address.  
+AddressAutoHiddenField is a field for storing address. It uses AddressAutoHiddenInput which is hidden and when you place your marker on the map, automatically fill itself with proper address.  
 In order to use it just add it to your model. Something like this:  
 ```python  
 class Location(models.Model):  
@@ -189,14 +189,14 @@ Since version 1.6.0, it is now possible to use multiple LocationFields (or forms
 location1 = LocationField(map_attrs={"id": "unique_id_1"})  
 location2 = LocationField(map_attrs={"id": "unique_id_2"})  
 ```  
-and then you can also use this ids as `map_id` in your AutoHiddenAddressFields:  
+Then you can also use these ids as `map_id` in your AutoHiddenAddressFields:  
 ```python  
 address1 = AddressAutoHiddenField(map_id="unique_id_1")  
 address2 = AddressAutoHiddenField(map_id="unique_id_2")  
 ```  
 # Troubleshooting  
 * #### Usage of the plain field's value in javascript ( [Issue #21](https://github.com/Simon-the-Shark/django-mapbox-location-field/issues/21))
-	In case of the plain field, the python representation of coordinates is a  [tuple](https://www.w3schools.com/python/python_tuples.asp). And  e.g Mapbox's requires a [javascript's array](https://www.w3schools.com/js/js_arrays.asp) when placing a marker on a map, which has identical syntax as  [Python's list](https://www.w3schools.com/python/python_lists.asp). In order to make the trasformation as easy as possible, since `v1.6.4` you can use a special filter or a tag (
+	In case of the plain field, the python representation of coordinates is a  [tuple](https://www.w3schools.com/python/python_tuples.asp). And e.g. Mapbox requires a [javascript's array](https://www.w3schools.com/js/js_arrays.asp) when placing a marker on a map, which has identical syntax as  [Python's list](https://www.w3schools.com/python/python_lists.asp). In order to make the transformation as easy as possible, since `v1.6.4` you can use a special filter or tag (
 choose your preferred way)
 	```Django
 	{% load mapbox_location_field_tags %}
