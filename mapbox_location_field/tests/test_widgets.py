@@ -14,7 +14,7 @@ class MapInputTests(TestCase):
 
     def test_map_attrs_customized(self):
         widget = MapInput(map_attrs={"readonly": False, "placeholder": "location", "zoom": 14})
-        self.assertEqual(widget.map_attrs, {"zoom": 14, })
+        self.assertEqual(widget.map_attrs.get("zoom", 0), 14)
         self.assertEqual(widget.placeholder, "location")
         self.assertFalse(widget.readonly)
 

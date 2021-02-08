@@ -100,7 +100,8 @@ Paste this in your html head:
  ```
  * And this in your body:  
  ```django  
- <form method="post"> {% csrf_token %} 
+ <form method="post">
+ {% csrf_token %} 
 	{{form}}
 	<input type="submit" value="submit"> 
 </form> 
@@ -132,7 +133,7 @@ from django.db import models
 from mapbox_location_field.models import LocationField  
   
 class Location(models.Model):  
- location = LocationField(map_attrs={"center": [0,0], "marker_color": "blue"})  
+    location = LocationField(map_attrs={"center": [0,0], "marker_color": "blue"})  
 ```  
 ## map_attrs  
 * style - `<string>`, mapbox style url. Read more [here](https://docs.mapbox.com/help/glossary/style-url/).  
@@ -179,8 +180,8 @@ AddressAutoHiddenField is field for storing address. It uses AddressAutoHiddenIn
 In order to use it just add it to your model. Something like this:  
 ```python  
 class Location(models.Model):  
- location = LocationField()  
- address = AddressAutoHiddenField()  
+    location = LocationField()  
+    address = AddressAutoHiddenField()  
 ```  
 # Multiple fields usage  
 Since version 1.6.0, it is now possible to use multiple LocationFields (or forms or widgets) as well as multiple AutoHiddenAddressFields. All you have to do is define unique `id` in `map_attrs`:  
@@ -207,6 +208,9 @@ choose your preferred way)
 	// Now you can use one of this variables as an array
 	</script>
 	```
+ * Stackoverflow questions:
+    * [Unable to show the data in django-mapbox-location-field Django
+](https://stackoverflow.com/questions/66081209/unable-to-show-the-data-in-django-mapbox-location-field-django/66094192#66094192)
 # Technologies  
 * Django  
 * mapbox gl js  
