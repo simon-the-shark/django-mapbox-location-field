@@ -20,8 +20,8 @@ class MapInputTests(TestCase):
 
     def test_map_attrs_customized_language_attrs(self):
         widget = MapInput(map_attrs={"language": "pl", "message_404": "messsage"})
-        self.assertEqual(widget.map_attrs.message_404, "message")
-        self.assertEqual(widget.map_attrs.language, "pl")
+        self.assertEqual(widget.map_attrs.get("message_404", ""), "message")
+        self.assertEqual(widget.map_attrs.get("language", ""), "pl")
 
     def test_get_contex(self):
         widget = MapInput(map_attrs={"readonly": False, "placeholder": "cool location field placeholder"})
