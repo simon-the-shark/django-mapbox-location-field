@@ -136,7 +136,7 @@ if (!mapboxgl.supported()) {
                     }
                     catch
                         (e) {
-                        reverse_name = map_attrs[id].message404;
+                        reverse_name = map_attrs[id].message_404;
                     }
                     geocoder.setInput(reverse_name);
                     $(document).trigger("reverse-geocode", [id, reverse_name,]);

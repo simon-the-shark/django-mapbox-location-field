@@ -125,7 +125,9 @@ default_map_attrs = {
  "navigation_buttons": True,
  "track_location_button": True, 
  "readonly": True,
- "placeholder": "Pick a location on map below", }
+ "placeholder": "Pick a location on map below", 
+ "language": "auto",
+ "message_404": "undefined address", }
  ```  
 To change some values, just pass it when you create model.  
 ```python  
@@ -149,6 +151,8 @@ class Location(models.Model):
 * readonly - `<bool>`, whether user can type location in text input  
 * placeholder - `<string>`, text input's placeholder  
 * id - `<string>`, unique id for the field, when you are using multiple fields (See more in [this section](#multiple-fields-usage)). When you use only one field, you don't have to define it, because default value is taken.  
+* language - `<string>`, language of an address returned from geocoding queries. Default is `"auto"` - which lets mapbox gl js determine the language (usually browser language if available). Hovewer, you can specify it in case of need. Check out [language coverage section in mapbox docs](https://docs.mapbox.com/api/search/geocoding/#language-coverage) to see available options of this field.
+* message_404 -  `<string>`, string used when no address is returned from geocoding query (e.q. marker on the ocean area). Default is simple: `"undefined address"`
   
 ## bootstrap  
 MapInput widget is fully compatible with bootstrap library. I can even recommend using it with [django-bootstrap4](https://github.com/zostera/django-bootstrap4) or [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms).  
