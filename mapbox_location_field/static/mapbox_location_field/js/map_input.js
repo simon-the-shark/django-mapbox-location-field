@@ -127,7 +127,7 @@ if (!mapboxgl.supported()) {
                     .addTo(map);
 
 
-                var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + translate_to_string(e.lngLat) + ".json?access_token=" + mapboxgl.accessToken;
+                var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + translate_to_string(e.lngLat) + ".json?access_token=" + mapboxgl.accessToken  + "&language=" + geocoder.getLanguage();
                 $.get(url, function (data) {
                     try {
                         reverse_name = data.features[0].place_name;
