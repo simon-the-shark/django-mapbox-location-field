@@ -18,6 +18,11 @@ class MapInputTests(TestCase):
         self.assertEqual(widget.placeholder, "location")
         self.assertFalse(widget.readonly)
 
+    def test_map_attrs_customized_language_attrs(self):
+        widget = MapInput(map_attrs={"language": "pl", "message_404": "messsage"})
+        self.assertEqual(widget.map_attrs.message_404, "message")
+        self.assertEqual(widget.map_attrs.language, "pl")
+
     def test_get_contex(self):
         widget = MapInput(map_attrs={"readonly": False, "placeholder": "cool location field placeholder"})
         contex = widget.get_context("location_field", None,
@@ -66,7 +71,9 @@ class MapInputTests(TestCase):
             "fullscreen_button": False,
             "navigation_buttons": False,
             "track_location_button": False,
-            "id": "test_map_id"
+            "id": "test_map_id",
+            "language": "auto",
+            "message_404": "undefined address",
         }
 
         widget = MapInput(map_attrs=expected_map_attrs)

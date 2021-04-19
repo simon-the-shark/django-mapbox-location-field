@@ -65,7 +65,9 @@ class MapInput(TextInput):
             "fullscreen_button": True,
             "navigation_buttons": True,
             "track_location_button": True,
-            "id": "map"
+            "id": "map",
+            "language": "auto",
+            "message_404": "undefined address",
         }
 
         if self.map_attrs is not None:

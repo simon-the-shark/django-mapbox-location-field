@@ -83,8 +83,10 @@ if (!mapboxgl.supported()) {
                 accessToken: mapboxgl.accessToken,
                 mapboxgl: mapboxgl,
                 localGeocoder: coordinatesGeocoder,
-
             });
+            if(map_attrs[id].language !== "auto")
+                geocoder.setLanguage(map_attrs[id].language);
+
             geocoders[id] = geocoder;
             map.getCanvas().style.cursor = map_attrs[id].cursor_style;
             if (!map_attrs[id].rotate) {
@@ -134,7 +136,7 @@ if (!mapboxgl.supported()) {
                     }
                     catch
                         (e) {
-                        reverse_name = "undefined address";
+                        reverse_name = map_attrs[id].message404;
                     }
                     geocoder.setInput(reverse_name);
                     $(document).trigger("reverse-geocode", [id, reverse_name,]);
