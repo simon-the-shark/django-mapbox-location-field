@@ -1,3 +1,5 @@
+from django.contrib.gis.db.models import PointField
+
 from .models import SpatialLocationField
 
 from ..admin import MapAdmin
@@ -7,7 +9,10 @@ from ..widgets import MapAdminInput, AddressHiddenAdminInput
 
 class SpatialMapAdmin(MapAdmin):
     formfield_overrides = {
-        LocationField: {'widget': MapAdminInput},
-        SpatialLocationField: {'widget': MapAdminInput},
-        AddressAutoHiddenField: {"widget": AddressHiddenAdminInput, }
+        LocationField: {"widget": MapAdminInput},
+        PointField: {"widget": MapAdminInput},
+        SpatialLocationField: {"widget": MapAdminInput},
+        AddressAutoHiddenField: {
+            "widget": AddressHiddenAdminInput,
+        },
     }
