@@ -212,6 +212,7 @@ choose your preferred way)
 	// Now you can use one of this variables as an array
 	</script>
 	```
+* #### [Address field's width and coordinates order convetions (Issue #30)](https://github.com/simon-the-shark/django-mapbox-location-field/issues/30)
  * Stackoverflow questions:
     * [Unable to show the data in django-mapbox-location-field Django
 ](https://stackoverflow.com/questions/66081209/unable-to-show-the-data-in-django-mapbox-location-field-django/66094192#66094192)
