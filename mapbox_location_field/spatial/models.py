@@ -1,5 +1,5 @@
 from django.contrib.gis.db.models import PointField
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .forms import SpatialLocationField as SpatialLocationFormField
 
