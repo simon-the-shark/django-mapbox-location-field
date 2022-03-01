@@ -26,4 +26,4 @@ jobs:
         pip install psycopg2
 
     - name: Run tests
-      run: ./manage.py test
+      run: python ./manage.py test
