@@ -8,22 +8,22 @@ addons:
       - postgresql-10-postgis-2.4
       - postgresql-10-postgis-2.4-scripts
       - postgresql-client-10
+
+
 matrix:
     fast_finish: true
     include:
-      - { python: "3.5", env: DJANGO_VERSION=1.11 }
-      - { python: "3.5", env: DJANGO_VERSION=2.0 }
-      - { python: "3.5", env: DJANGO_VERSION=2.1 }
-      - { python: "3.5", env: DJANGO_VERSION=2.2 }
 
-      - { python: "3.6", env: DJANGO_VERSION=1.11 }
-      - { python: "3.6", env: DJANGO_VERSION=2.0 }
-      - { python: "3.6", env: DJANGO_VERSION=2.1 }
-      - { python: "3.6", env: DJANGO_VERSION=2.2 }
+      - { python: "3.8", env: DJANGO_VERSION=3.2.12 }
+      - { python: "3.8", env: DJANGO_VERSION=4.0.3 }
 
-      - { python: "3.7", env: DJANGO_VERSION=2.0 }
-      - { python: "3.7", env: DJANGO_VERSION=2.1 }
-      - { python: "3.7", env: DJANGO_VERSION=2.2 }
+      - { python: "3.9", env: DJANGO_VERSION=3.2.12 }
+      - { python: "3.9", env: DJANGO_VERSION=4.0.3 }
+
+      - { python: "3.10", env: DJANGO_VERSION=3.2.12 }
+      - { python: "3.10", env: DJANGO_VERSION=4.0.3 }
+
+
 before_install:
   - sudo -u postgres psql -c "CREATE USER testuser WITH PASSWORD 'password'"
   - sudo -u postgres psql -c "ALTER ROLE testuser SUPERUSER"

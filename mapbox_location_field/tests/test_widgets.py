@@ -19,7 +19,7 @@ class MapInputTests(TestCase):
         self.assertFalse(widget.readonly)
 
     def test_map_attrs_customized_language_attrs(self):
-        widget = MapInput(map_attrs={"language": "pl", "message_404": "messsage"})
+        widget = MapInput(map_attrs={"language": "pl", "message_404": "message"})
         self.assertEqual(widget.map_attrs.get("message_404", ""), "message")
         self.assertEqual(widget.map_attrs.get("language", ""), "pl")
 
@@ -54,6 +54,8 @@ class MapInputTests(TestCase):
             "fullscreen_button": True,
             "navigation_buttons": True,
             "track_location_button": True,
+            'language': 'auto',
+            'message_404': 'undefined address',
             "id": "map"
         }
         result = widget.get_config_settings()
