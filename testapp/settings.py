@@ -82,11 +82,11 @@ POSTGIS_VERSION = (2, 4, 0)
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'travis',
-        'USER': 'testuser',
+        'NAME': 'test',
+        'USER': 'test',
         'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': os.getenv('PGPORT'),
+        'PORT': 5432,
     },
 }
 
