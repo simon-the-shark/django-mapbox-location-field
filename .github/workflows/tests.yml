@@ -28,6 +28,7 @@ jobs:
       run: |
         sudo add-apt-repository ppa:ubuntugis/ppa
         sudo apt-get update
-        sudo apt-get install gdal-bin libgdal-dev
+        sudo apt-get install binutils libproj-dev gdal-bin
+
     - name: Run tests
       run: python ./manage.py test
