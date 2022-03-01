@@ -71,7 +71,7 @@ TEMPLATES = [
 #
 # GDAL_LIBRARY_PATH = '/opt/homebrew/opt/gdal/lib/libgdal.dylib'
 # GEOS_LIBRARY_PATH = '/opt/homebrew/opt/geos/lib/libgeos_c.dylib'
-#
+# #
 
 WSGI_APPLICATION = 'testapp.wsgi.application'
 
@@ -82,11 +82,11 @@ POSTGIS_VERSION = (2, 4, 0)
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'travis',
-        'USER': 'testuser',
+        'NAME': 'test',
+        'USER': 'test',
         'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': os.getenv('PGPORT'),
+        'PORT': 5432,
     },
 }
 
