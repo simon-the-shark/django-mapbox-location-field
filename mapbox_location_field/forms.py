@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .widgets import MapInput, AddressAutoHiddenInput
 
@@ -46,7 +46,7 @@ class LocationField(forms.CharField):
         map_attrs = kwargs.pop("map_attrs", None)
         super().__init__(*args, **kwargs)
 
-        self.widget = MapInput(map_attrs=map_attrs, )
+        self.widget = MapInput(map_attrs=map_attrs,)
         self.error_messages = {"required": "Please pick a location, it's required", }
 
     def to_python(self, value):

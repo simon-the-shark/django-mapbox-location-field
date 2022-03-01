@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .forms import AddressAutoHiddenField as AddressAutoHiddenFormField, parse_location, ValidationError
 from .forms import LocationField as LocationFormField
