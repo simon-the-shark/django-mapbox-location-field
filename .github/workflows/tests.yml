@@ -40,6 +40,7 @@ jobs:
     - name: Coveralls
       uses: AndreMiras/coveralls-python-action@develop
       with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         parallel: true
         flag-name: django-${{ matrix.django_version }}-python-${{ matrix.python_version }}
 
@@ -50,4 +51,5 @@ jobs:
         - name: Coveralls Finished
           uses: AndreMiras/coveralls-python-action@develop
           with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
             parallel-finished: true
