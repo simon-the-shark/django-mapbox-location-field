@@ -1,6 +1,6 @@
 name: django_mapbox_location_field automated tests
 
-on: [push]
+on: ["push", "pull_request"]
 
 jobs:
   build:
@@ -29,6 +29,7 @@ jobs:
         sudo add-apt-repository ppa:ubuntugis/ppa
         sudo apt-get update
         sudo apt-get install binutils libproj-dev gdal-bin
-
     - name: Run tests
-      run: python ./manage.py test
+      run: coverage run --source=mapbox_location_field manage.py test
+    - name: Coveralls
+      run: coveralls
