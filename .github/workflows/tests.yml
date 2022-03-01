@@ -37,9 +37,17 @@ jobs:
     - name: Run tests
       run: coverage run --source=mapbox_location_field manage.py test
 
+    - name: Coveralls
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        parallel: true
+        flag-name: django-${{ matrix.django_version }}-python-${{ matrix.python_version }}
+
   finish:
       needs: test
       runs-on: ubuntu-latest
       steps:
-      - name: Coveralls Finished
-        run: coveralls
+        - name: Coveralls Finished
+          uses: AndreMiras/coveralls-python-action@develop
+          with:
+            parallel-finished: true
