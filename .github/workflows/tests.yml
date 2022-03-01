@@ -37,19 +37,9 @@ jobs:
     - name: Run tests
       run: coverage run --source=mapbox_location_field manage.py test
 
-    - name: Coveralls Parallel
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        flag-name: django-${{ matrix.django_version }}-python-${{ matrix.python_version }}
-        parallel: true
-
   finish:
       needs: test
       runs-on: ubuntu-latest
       steps:
       - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel-finished: true
+        run: coveralls
