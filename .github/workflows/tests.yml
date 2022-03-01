@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install coverage
+        pip install coverage[toml]
         pip install coveralls
         pip install Django==${{ matrix.django_version }}
         pip install psycopg2
