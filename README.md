@@ -1,6 +1,6 @@
 
  # django-mapbox-location-field
- [![Build Status](https://travis-ci.org/Simon-the-Shark/django-mapbox-location-field.svg?branch=master)](https://travis-ci.org/Simon-the-Shark/django-mapbox-location-field) [![Coverage Status](https://coveralls.io/repos/github/Simon-the-Shark/django-mapbox-location-field/badge.svg?branch=master)](https://coveralls.io/github/Simon-the-Shark/django-mapbox-location-field?branch=master)
+![Build status](https://github.com/Simon-the-Shark/django-mapbox-location-field/actions/workflows/tests.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/Simon-the-Shark/django-mapbox-location-field/badge.svg?branch=master)](https://coveralls.io/github/Simon-the-Shark/django-mapbox-location-field?branch=master)
  ![PyPI](https://img.shields.io/pypi/v/django-mapbox-location-field.svg) ![PyPI - Downloads](https://img.shields.io/pypi/dm/django-mapbox-location-field)
  ****
  Simple in use **location model and form field** with **MapInput widget** for picking some location. Uses [mapbox gl js](https://docs.mapbox.com/mapbox-gl-js/), flexible map provider API. Fully compatible with bootstrap framework.
@@ -34,14 +34,15 @@ Feel free to open issues, make pull request and request some features or instruc
 Curious how it works and looks like? See live demo on https://django-mapbox-location-field.herokuapp.com  
 Demo app uses [django-bootstrap4](https://github.com/zostera/django-bootstrap4) for a little better looking form fields.  
 You can also use it as a code example, because it is available on [my github](https://github.com/Simon-the-Shark/live_demo_django_mapbox_location_field).  
-# Compatibility  
-Automatically tested on Travis CI on versions:  
-  
-* Django 1.11, 2.0, 2.1, 2.2  
-* Python 3.5, 3.6, 3.7  
-  
-PS. Django 1.11 does not support Python 3.7 anymore.  
-  
+# Compatibility
+### Breaking changes
+Since `v2.0.0` package supports only `Django` versions `3.x` and `4.x` and its relevant `Python` versions, due to breaking changes in Django api.
+For Django `2.x` and `1.x`, you can use version `1.7.4` and below and it should work relatively well, but newest upgrades will not be applied.
+
+Package automatically tested on Github Actions:
+* Django `4.0.3` and `3.2.12`
+* Python `3.8`, `3.9`, `3.10`  
+   
 #### Browser support  
 django-mapbox-location-field support all browsers, which are supported by mapbox gl js. Read more [here](https://docs.mapbox.com/help/troubleshooting/mapbox-browser-support/#mapbox-gl-js)  
 #### Databases support  
@@ -218,6 +219,6 @@ choose your preferred way)
 ](https://stackoverflow.com/questions/66081209/unable-to-show-the-data-in-django-mapbox-location-field-django/66094192#66094192)
 # Technologies  
 * Django  
-* mapbox gl js  
+* Mapbox GL JS  
 * jQuery  
-* html and css
+* HTML and CSS

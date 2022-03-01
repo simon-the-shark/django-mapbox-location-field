@@ -1,4 +1,4 @@
-name: django_mapbox_location_field automated tests
+name: Tests
 
 on: ["push", "pull_request"]
 
