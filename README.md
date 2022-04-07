@@ -72,20 +72,23 @@ MAPBOX_KEY = "pk.eyJ1IjoibWlnaHR5c2hhcmt5IiwiYSI6ImNqd2duaW4wMzBhcWI0M3F1MTRvbHB
 ### PLAIN DATABASE  
  * Just create some model with LocationField.   
  ```python  
- from django.db import models from mapbox_location_field.models import LocationField  
+ from django.db import models  
+ from mapbox_location_field.models import LocationField  
  class SomeLocationModel(models.Model):  
 	 location = LocationField()  
  ```
 ### SPATIAL DATABASE  
  * Just create some model with SpatialLocationField.  
 ```python  
- from django.db import models from mapbox_location_field.spatial.models import SpatialLocationField  
+ from django.db import models 
+ from mapbox_location_field.spatial.models import SpatialLocationField  
  class SomeLocationModel(models.Model):  
 	 location = SpatialLocationField()    
  ```
 * Create ModelForm  
  ```python  
- from django import forms from .models import SomeLocationModel  
+ from django import forms 
+ from .models import SomeLocationModel  
  class LocationForm(forms.ModelForm):  
 	 class Meta:  
 		 model = SomeLocationModel 
@@ -163,9 +166,9 @@ First create some model with location field like in [usage section](#usage).
 Then register it in admin interface like this:  
 * #### Plain:  
 ```python  
-from django.contrib import admin  
-from .models import SomeLocationModel  
-from mapbox_location_field.admin import MapAdmin  
+from django.contrib import admin   
+from .models import SomeLocationModel   
+from mapbox_location_field.admin import MapAdmin   
   
 admin.site.register(SomeLocationModel, MapAdmin)  
 ```  
