@@ -85,10 +85,10 @@ MAPBOX_KEY = "pk.eyJ1IjoibWlnaHR5c2hhcmt5IiwiYSI6ImNqd2duaW4wMzBhcWI0M3F1MTRvbHB
  ```
 * Create ModelForm  
  ```python  
- from django import forms from .models import Location  
+ from django import forms from .models import SomeLocationModel  
  class LocationForm(forms.ModelForm):  
 	 class Meta:  
-		 model = Location 
+		 model = SomeLocationModel 
 		 fields = "__all__" 
  ```  
  Of course, you can also use CreateView, UpdateView or build Form yourself with `mapbox_location_field.forms.LocationField` or `mapbox_location_field.spatial.forms.SpatialLocationField` 
@@ -135,7 +135,7 @@ To change some values, just pass it when you create model.
 from django.db import models  
 from mapbox_location_field.models import LocationField  
   
-class Location(models.Model):  
+class SomeLocationModel(models.Model):  
     location = LocationField(map_attrs={"center": [0,0], "marker_color": "blue"})  
 ```  
 ## map_attrs  
@@ -184,7 +184,7 @@ Since `v1.7.0` admin customization should work out of the box, automatically usi
 AddressAutoHiddenField is a field for storing address. It uses AddressAutoHiddenInput which is hidden and when you place your marker on the map, automatically fill itself with proper address.  
 In order to use it just add it to your model. Something like this:  
 ```python  
-class Location(models.Model):  
+class SomeLocationModel(models.Model):  
     location = LocationField()  
     address = AddressAutoHiddenField()  
 ```  
