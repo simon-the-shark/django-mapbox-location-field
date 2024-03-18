@@ -10,7 +10,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-mapbox-location-field',
-    version='2.0.0',
+    version='2.1.0',
     packages=["mapbox_location_field"],
     include_package_data=True,
     license='MIT License',
