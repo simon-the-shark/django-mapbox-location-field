@@ -10,11 +10,13 @@ jobs:
         python_version: [ '3.10', '3.11', '3.12' ]
         django_version: [ '3.2.12', '4.2', '5.0.3' ]
     steps:
-      - uses: nyurik/action-setup-postgis@v1
+      - uses: nyaruka/postgis-action@v2.1.0
         with:
-          username: test
-          database: test
-          password: password
+          postgresql version: '12'
+          postgis version: '2.5'
+          postgresql password: 'password'
+          postgresql user: 'test'
+          postgresql db: 'test'
       - uses: actions/checkout@v2
       - name: Set up Python version
         uses: actions/setup-python@v2
