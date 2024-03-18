@@ -22,7 +22,7 @@ class LocationFieldTests(TestCase):
 
     def test_clean(self):
         field = LocationField()
-        self.assertEqual("11,12", field.clean("12, 11"))
+        self.assertEqual("12, 11", field.clean("12, 11"))
 
 
 class SpatialLocationFieldTests(TestCase):
@@ -44,8 +44,8 @@ class SpatialLocationFieldTests(TestCase):
         point = field.clean("12,13")
 
         self.assertIsInstance(point, Point)
-        self.assertEqual(point.x, 13)
-        self.assertEqual(point.y, 12)
+        self.assertEqual(point.x, 12)
+        self.assertEqual(point.y, 13)
 
         point = field.clean("12")
         self.assertIsNone(point)
@@ -61,8 +61,8 @@ class SpatialLocationFieldTests(TestCase):
 
         point = field.to_python("12,13")
         self.assertIsInstance(point, Point)
-        self.assertEqual(point.x, 13)
-        self.assertEqual(point.y, 12)
+        self.assertEqual(point.x, 12)
+        self.assertEqual(point.y, 13)
 
     def test_reverse_tuple_string(self):
         self.assertEqual(reverse_tuple_string("1,2"), "2,1")

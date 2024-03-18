@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from mapbox_location_field.forms import AddressAutoHiddenField as FormAddressAutoHiddenField
+from mapbox_location_field.forms import AddressAutoHiddenField as FormAddressAutoHiddenField, FirstInOrder
 from mapbox_location_field.forms import LocationField as FormLocationField
 from mapbox_location_field.models import parse_location, LocationField, AddressAutoHiddenField
 from mapbox_location_field.spatial.forms import SpatialLocationField as FormSpatialLocationField
@@ -19,8 +19,8 @@ class LocationFieldTests(TestCase):
         self.assertEqual(parse_location("0.5542434352,7.14325463435626543674375"),
                          (0.5542434352, 7.14325463435626543674375))
 
-        self.assertEqual(parse_location("1,7", "lat"), (7, 1))
-        self.assertEqual(parse_location("0.5542434352,7.14325463435626543674375", "lat"),
+        self.assertEqual(parse_location("1,7", FirstInOrder.lat), (7, 1))
+        self.assertEqual(parse_location("0.5542434352,7.14325463435626543674375", FirstInOrder.lat),
                          (7.14325463435626543674375, 0.5542434352))
 
         self.assertRaisesValidationError(parse_location, "1,2,4,7,6")

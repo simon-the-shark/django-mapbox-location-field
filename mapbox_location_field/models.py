@@ -23,7 +23,7 @@ class LocationField(models.CharField):
         kwargs["map_attrs"] = self.map_attrs
         return name, path, args, kwargs
 
-    def from_db_value(self, value: str | None, expression, connection):
+    def from_db_value(self, value: str | None, expression=None, connection=None):
         if not value:
             return value
         return parse_location(value)
