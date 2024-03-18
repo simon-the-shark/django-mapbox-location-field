@@ -26,7 +26,7 @@ def reverse_tuple_string(location_string: str) -> str:
 
 
 class MapInput(TextInput):
-    """widget for picking your location"""
+    """ widget for picking your location """
 
     template_name = "mapbox_location_field/map_input.html"
 
@@ -35,7 +35,7 @@ class MapInput(TextInput):
         self.readonly = self.map_attrs.get("readonly", True)
         self.placeholder = self.map_attrs.get("placeholder", "Pick a location on map below")
         self.center_point = None
-        super().__init__(attrs)
+        super(MapInput, self).__init__(attrs)
 
     def format_value(self, value: str | None) -> str | None:
         if value == "" or value is None:
@@ -59,14 +59,14 @@ class MapInput(TextInput):
         attrs["class"] = attrs.get("class", "") + " js-mapbox-input-location-field"
         attrs["id"] = self.map_attrs.get("id", "map")
 
-        context = super().get_context(name, value, attrs)
+        context = super(MapInput, self).get_context(name, value, attrs)
         self.center_point = context["widget"].get("value", None)
         context["key"] = settings.MAPBOX_KEY
         context["mapbox_attrs"] = self.get_config_settings()
         return context
 
     def get_config_settings(self):
-        """renders javascript configuration variables definitions"""
+        """ renders javascript configuration variables definitions """
         default_map_attrs = {
             "style": "mapbox://styles/mapbox/outdoors-v11",
             "zoom": 13,
@@ -93,19 +93,19 @@ class MapInput(TextInput):
 
 
 class AddressAutoHiddenInput(TextInput):
-    """hidden text input which automatically fill itself with address from MapInput"""
+    """ hidden text input which automatically fill itself with address from MapInput """
     template_name = "mapbox_location_field/address_input.html"
 
     def __init__(self, attrs=None, map_id="map"):
         self.map_id = map_id
-        super().__init__(attrs)
+        super(AddressAutoHiddenInput, self).__init__(attrs)
         self.label = ""
 
     def get_context(self, name, value, attrs):
         attrs = attrs or {}
         attrs["class"] = attrs.get("class", "") + " js-mapbox-address-input-location-field"
 
-        context = super().get_context(name, value, attrs)
+        context = super(AddressAutoHiddenInput, self).get_context(name, value, attrs)
 
         context["map_id"] = self.map_id
         return context

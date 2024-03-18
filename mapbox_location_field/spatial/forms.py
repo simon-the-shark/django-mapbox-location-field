@@ -10,14 +10,14 @@ class SpatialLocationField(PointField):
 
     def __init__(self, *args, **kwargs):
         map_attrs = kwargs.pop("map_attrs", None)
-        super().__init__(*args, **kwargs)
+        super(SpatialLocationField, self).__init__(*args, **kwargs)
 
         self.widget = MapInput(map_attrs=map_attrs, )
         self.error_messages = {"required": "Please pick a location, it's required", }
 
     def clean(self, value):
         try:
-            return super().clean(value)
+            return super(SpatialLocationField, self).clean(value)
         except (ValueError, ValidationError):
             return None
 

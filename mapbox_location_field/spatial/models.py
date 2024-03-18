@@ -11,10 +11,10 @@ class SpatialLocationField(PointField):
 
     def __init__(self, *args, **kwargs):
         self.map_attrs = kwargs.pop("map_attrs", {})
-        super().__init__(*args, **kwargs)
+        super(SpatialLocationField, self).__init__(*args, **kwargs)
 
     def deconstruct(self):
-        name, path, args, kwargs = super().deconstruct()
+        name, path, args, kwargs = super(SpatialLocationField, self).deconstruct()
         kwargs["map_attrs"] = self.map_attrs
         return name, path, args, kwargs
 
@@ -22,4 +22,4 @@ class SpatialLocationField(PointField):
         defaults = {'form_class': SpatialLocationFormField}
         defaults.update(kwargs)
         defaults.update({"map_attrs": self.map_attrs})
-        return super().formfield(**defaults)
+        return super(SpatialLocationField, self).formfield(**defaults)

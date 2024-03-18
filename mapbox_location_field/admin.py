@@ -18,11 +18,11 @@ class MapAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
         extra_context["bottom_media"] = Media(
             js=("mapbox_location_field/js/map_input.js", "mapbox_location_field/js/address_input.js"))
-        return super().change_view(request, object_id, form_url, extra_context=extra_context, )
+        return super(MapAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context, )
 
     def add_view(self, request, form_url='', extra_context=None):
         """add media that is placed below form as separate argument in context"""
         extra_context = extra_context or {}
         extra_context["bottom_media"] = Media(
             js=("mapbox_location_field/js/map_input.js", "mapbox_location_field/js/address_input.js"))
-        return super().add_view(request, form_url, extra_context=extra_context, )
+        return super(MapAdmin, self).add_view(request, form_url, extra_context=extra_context, )

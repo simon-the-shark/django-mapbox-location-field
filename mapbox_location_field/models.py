@@ -15,10 +15,10 @@ class LocationField(models.CharField):
     def __init__(self, *args, **kwargs):
         kwargs["max_length"] = 63
         self.map_attrs = kwargs.pop("map_attrs", {})
-        super().__init__(*args, **kwargs)
+        super(LocationField, self).__init__(*args, **kwargs)
 
     def deconstruct(self):
-        name, path, args, kwargs = super().deconstruct()
+        name, path, args, kwargs = super(LocationField, self).deconstruct()
         del kwargs["max_length"]
         kwargs["map_attrs"] = self.map_attrs
         return name, path, args, kwargs
@@ -48,7 +48,7 @@ class LocationField(models.CharField):
         defaults = {'form_class': LocationFormField}
         defaults.update(kwargs)
         defaults.update({"map_attrs": self.map_attrs})
-        return super().formfield(**defaults)
+        return super(LocationField, self).formfield(**defaults)
 
     def value_to_string(self, obj):
         value = self.value_from_object(obj)
@@ -72,10 +72,10 @@ class AddressAutoHiddenField(models.TextField):
 
     def __init__(self, *args, **kwargs):
         self.map_id = kwargs.pop("map_id", "map")
-        super().__init__(*args, **kwargs)
+        super(AddressAutoHiddenField, self).__init__(*args, **kwargs)
 
     def deconstruct(self):
-        name, path, args, kwargs = super().deconstruct()
+        name, path, args, kwargs = super(AddressAutoHiddenField, self).deconstruct()
         kwargs["map_id"] = self.map_id
         return name, path, args, kwargs
 
