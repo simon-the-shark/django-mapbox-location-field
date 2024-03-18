@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "mapbox_location_field",
-
 ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -68,16 +68,14 @@ TEMPLATES = [
     },
 ]
 
-#
-# GDAL_LIBRARY_PATH = '/opt/homebrew/opt/gdal/lib/libgdal.dylib'
-# GEOS_LIBRARY_PATH = '/opt/homebrew/opt/geos/lib/libgeos_c.dylib'
-# #
-
 WSGI_APPLICATION = 'testapp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 POSTGIS_VERSION = (2, 4, 0)
+
+GDAL_LIBRARY_PATH = '/Applications/Postgres.app/Contents/Versions/14/lib/libgdal.dylib'
+GEOS_LIBRARY_PATH = '/Applications/Postgres.app/Contents/Versions/14/lib/libgeos_c.dylib'
 
 DATABASES = {
     'default': {
