@@ -29,4 +29,4 @@ class SpatialLocationField(PointField):
         if isinstance(value, Point):
             return value
 
-        return Point(parse_location(value, first_in_order="lat"), srid=4326)
+        return Point(parse_location(value), srid=4326)

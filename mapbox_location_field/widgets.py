@@ -1,16 +1,28 @@
+from __future__ import annotations
+
 from django.conf import settings
 from django.forms import Media
 from django.forms.widgets import TextInput
 
 
-def parse_tuple_string(tuple_string):
+def parse_tuple_string(tuple_string: str) -> tuple[float, float]:
+    """ Parses a string to a tuple. Does not reverse any coords """
     if "POINT" in tuple_string:
-        list = tuple_string.split(" ")[1:]
-        list[0] = list[0][1:]
-        list[1] = list[1][:-1]
-        return tuple(map(float, list))
+        split = tuple_string.split(" ")[1:]
+        return float(split[0][1:]), float(split[1][:-1])
 
-    return tuple(map(float, tuple_string[1:-1].split(",")))
+    split = tuple_string.split(",")
+    return float(split[0].strip(" ()")), float(split[1].strip(" ()"))
+
+
+def reverse_tuple_string(location_string: str) -> str:
+    if isinstance(location_string, str):
+        if location_string == "":
+            return location_string
+        args = location_string.split(",")
+        return args[1].strip() + "," + args[0].strip()
+    else:
+        return str(location_string[1]) + "," + str(location_string[0])
 
 
 class MapInput(TextInput):
@@ -19,14 +31,16 @@ class MapInput(TextInput):
     template_name = "mapbox_location_field/map_input.html"
 
     def __init__(self, attrs=None, map_attrs=None):
-        if map_attrs is None:
-            map_attrs = {}
-        self.map_attrs = map_attrs
+        self.map_attrs = map_attrs or {}
         self.readonly = self.map_attrs.get("readonly", True)
         self.placeholder = self.map_attrs.get("placeholder", "Pick a location on map below")
-        self.center_point = False
-
+        self.center_point = None
         super().__init__(attrs)
+
+    def format_value(self, value: str | None) -> str | None:
+        if value == "" or value is None:
+            return None
+        return reverse_tuple_string(value)
 
     class Media:
         js = ("mapbox_location_field/js/map_input.js",)
@@ -35,19 +49,18 @@ class MapInput(TextInput):
         }
 
     def get_context(self, name, value, attrs):
-        if attrs is None:
-            attrs = {}
-
+        attrs = attrs or {}
         must_be_attrs = {
             "readonly": self.readonly,
             "placeholder": self.placeholder
         }
         attrs.update(must_be_attrs)
+
         attrs["class"] = attrs.get("class", "") + " js-mapbox-input-location-field"
         attrs["id"] = self.map_attrs.get("id", "map")
 
         context = super().get_context(name, value, attrs)
-        self.center_point = context["widget"].get("value", False)
+        self.center_point = context["widget"].get("value", None)
         context["key"] = settings.MAPBOX_KEY
         context["mapbox_attrs"] = self.get_config_settings()
         return context
@@ -89,9 +102,9 @@ class AddressAutoHiddenInput(TextInput):
         self.label = ""
 
     def get_context(self, name, value, attrs):
-        if attrs is None:
-            attrs = {}
+        attrs = attrs or {}
         attrs["class"] = attrs.get("class", "") + " js-mapbox-address-input-location-field"
+
         context = super().get_context(name, value, attrs)
 
         context["map_id"] = self.map_id
@@ -105,7 +118,7 @@ class AddressAutoHiddenInput(TextInput):
 
 
 class MapAdminInput(MapInput):
-    """map input, but with javascript excluded from media"""
+    """ map input, but with javascript excluded from media """
 
     @property
     def media(self):
@@ -113,7 +126,7 @@ class MapAdminInput(MapInput):
 
 
 class AddressHiddenAdminInput(AddressAutoHiddenInput):
-    """address input, but with javascript excluded from media"""
+    """ address input, but with javascript excluded from media """
 
     @property
     def media(self):

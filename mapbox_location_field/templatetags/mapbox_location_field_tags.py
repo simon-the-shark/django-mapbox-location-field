@@ -20,5 +20,3 @@ def include_jquery():
 @register.simple_tag
 def tuple_to_array(coordinates_tuple):
     return list(coordinates_tuple)
-
-

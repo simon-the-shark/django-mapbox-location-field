@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -6,7 +8,7 @@ from .forms import LocationField as LocationFormField
 
 
 class LocationField(models.CharField):
-    """custom model field for storing location"""
+    """ custom model field for storing location """
 
     description = _("Location field (latitude and longitude).")
 
@@ -21,22 +23,20 @@ class LocationField(models.CharField):
         kwargs["map_attrs"] = self.map_attrs
         return name, path, args, kwargs
 
-    def from_db_value(self, value, expression=None, connection=None):
-        if value is None:
+    def from_db_value(self, value: str | None, expression, connection):
+        if not value:
             return value
         return parse_location(value)
 
-    def to_python(self, value):
+    def to_python(self, value: tuple | None | str) -> tuple[float, float] | None:
         if isinstance(value, tuple):
+            return value[0], value[1]
+        elif not value:
             return value
-
-        if value is None:
-            return value
-
         return parse_location(value)
 
-    def get_prep_value(self, value):
-        if value is None:
+    def get_prep_value(self, value: str | tuple[float, float] | None) -> str:
+        if not value:
             return value
 
         if isinstance(value, str):
@@ -54,8 +54,8 @@ class LocationField(models.CharField):
         value = self.value_from_object(obj)
         return self.get_prep_value(value)
 
-    def save_string(self, value):
-        """protect db from invalid string value"""
+    def save_string(self, value: str) -> str | None:
+        """ protect db from invalid string value """
         try:
             parse_location(value)
         except ValidationError:
@@ -67,7 +67,7 @@ class LocationField(models.CharField):
 
 
 class AddressAutoHiddenField(models.TextField):
-    """custom model field for storing address"""
+    """ custom model field for storing address """
     description = _("Address field which automatically fill with address from LocationField.")
 
     def __init__(self, *args, **kwargs):
