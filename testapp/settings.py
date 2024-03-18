@@ -74,8 +74,8 @@ WSGI_APPLICATION = 'testapp.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 POSTGIS_VERSION = (2, 4, 0)
 
-GDAL_LIBRARY_PATH = '/Applications/Postgres.app/Contents/Versions/14/lib/libgdal.dylib'
-GEOS_LIBRARY_PATH = '/Applications/Postgres.app/Contents/Versions/14/lib/libgeos_c.dylib'
+# GDAL_LIBRARY_PATH = '/Applications/Postgres.app/Contents/Versions/14/lib/libgdal.dylib'
+# GEOS_LIBRARY_PATH = '/Applications/Postgres.app/Contents/Versions/14/lib/libgeos_c.dylib'
 
 DATABASES = {
     'default': {
