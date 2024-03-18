@@ -17,7 +17,7 @@ setup(
     description='location field with MapInput widget for picking some location',
     long_description=README,
     long_description_content_type="text/markdown",
-    download_url="https://github.com/Simon-the-Shark/django-mapbox-location-field/archive/v2.0.0.tar.gz",
+    download_url="https://github.com/Simon-the-Shark/django-mapbox-location-field/archive/v2.1.0.tar.gz",
     url='https://github.com/Simon-the-Shark/django-mapbox-location-field',
     author='Szymon Kowaliński',
     author_email='contact@kowalinski.dev',

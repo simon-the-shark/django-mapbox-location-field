@@ -29,11 +29,15 @@
 # Why this?  
 I was searching for some django location field which uses mapbox to use it in my project. However, I didn't find anything which suited my needs in 100% and that's why I created this simple django app. My philosophy was simplicity, but I wanted to create complete solution for picking location.  
   
-Feel free to open issues, make pull request and request some features or instructions. Let me know if you think it is not flexible enough.  
+Feel free to open issues, make pull request and request some features or instructions. Let me know if you think it is not flexible enough.
+  
+PyPi's funny statistics (downloads etc): https://pypistats.org/packages/django-mapbox-location-field
+  
 # Live demo  
 Curious how it works and looks like? See live demo on https://dj-map-loc-field-demo.kowalinski.dev  
 Demo app uses [django-bootstrap4](https://github.com/zostera/django-bootstrap4) for a little better looking form fields.  
-You can also use it as a code example, because it is available on [my github](https://github.com/Simon-the-Shark/live_demo_django_mapbox_location_field).  
+You can also use it as a code example, because it is available on [my github](https://github.com/Simon-the-Shark/live_demo_django_mapbox_location_field).
+
 # Compatibility
 ### Breaking changes
 Since `v2.0.0` package supports only `Django` versions `3.x` and `4.x` and its relevant `Python` versions, due to breaking changes in Django api.
