@@ -31,7 +31,7 @@ I was searching for some django location field which uses mapbox to use it in my
   
 Feel free to open issues, make pull request and request some features or instructions. Let me know if you think it is not flexible enough.  
 # Live demo  
-Curious how it works and looks like? See live demo on https://django-mapbox-location-field.herokuapp.com  
+Curious how it works and looks like? See live demo on https://dj-map-loc-field-demo.kowalinski.dev  
 Demo app uses [django-bootstrap4](https://github.com/zostera/django-bootstrap4) for a little better looking form fields.  
 You can also use it as a code example, because it is available on [my github](https://github.com/Simon-the-Shark/live_demo_django_mapbox_location_field).  
 # Compatibility
@@ -40,8 +40,8 @@ Since `v2.0.0` package supports only `Django` versions `3.x` and `4.x` and its r
 For Django `2.x` and `1.x`, you can use version `1.7.4` and below and it should work relatively well, but newest upgrades will not be applied.
 
 Package automatically tested on Github Actions:
-* Django `4.0.3` and `3.2.12`
-* Python `3.8`, `3.9`, `3.10`  
+* Django `5.0.3`, `4.2` and `3.2.12`
+* Python `3.10`, `3.11`, `3.12`  
    
 #### Browser support  
 django-mapbox-location-field support all browsers, which are supported by mapbox gl js. Read more [here](https://docs.mapbox.com/help/troubleshooting/mapbox-browser-support/#mapbox-gl-js)  

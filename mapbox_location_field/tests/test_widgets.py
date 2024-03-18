@@ -102,7 +102,7 @@ class MapInputTests(TestCase):
     def test_setting_center_point(self):
         widget = MapInput()
         widget.get_context("name", (1234.3, 2352145.6), {})
-        self.assertEqual(widget.center_point, '(1234.3,2352145.6)')
+        self.assertEqual(widget.center_point, '2352145.6,1234.3')
 
 
 class AddressAutoHiddenInputTests(TestCase):
