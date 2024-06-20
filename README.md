@@ -229,3 +229,8 @@ choose your preferred way)
 * Mapbox GL JS  
 * jQuery  
 * HTML and CSS
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=simon-the-shark/django-mapbox-location-field&type=Date)](https://star-history.com/#simon-the-shark/django-mapbox-location-field&Date)
